@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- OneTrust Cookies Consent Notice start for anuschkatmader.github.io/LidlWEB/ -->
-
-
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="019ff00c-3b59-7dcb-b6c0-8ca15521d41b" ></script>
-<script type="text/javascript">
-function OptanonWrapper() { }
-</script>
-<!-- OneTrust Cookies Consent Notice end for anuschkatmader.github.io/LidlWEB/ -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lidl.de – Demo Mockup (OneTrust)</title>
 
 <!-- =====================================================================
-     ONETRUST · EMBEDDED WEB FORM (Lidl Plus Anmeldung)
+     ONETRUST · COOKIE BANNER (CMP)
      ---------------------------------------------------------------------
      ERSETZEN BEIM GO-LIVE:
-     1) Kommentar unten entfernen (Queue-Stub, muss VOR dem Aufruf von
-        OneTrust.webform.InstallCP geladen sein).
-     2) In OT_CONFIG.webformCpId weiter unten die Collection-Point-ID
-        eintragen. Das Formular rendert dann in <div id="ot-container">.
+     1) Kommentar unten entfernen und "<DOMAIN-SCRIPT-ID>" durch die echte
+        Domain-Script-ID aus dem OneTrust Admin ersetzen.
+     2) Den Demo-Banner im Markup löschen (Suche: "DEMO COOKIE BANNER").
+     Die Funktion OptanonWrapper() unten wird von OneTrust automatisch
+     aufgerufen, sobald der echte Banner geladen ist.
      ===================================================================== -->
+<!--
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        type="text/javascript"
+        charset="UTF-8"
+        data-domain-script="<DOMAIN-SCRIPT-ID>"></script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    document.body.classList.add('ot-live');
+    var demo = document.getElementById('cookieDemo');
+    if (demo) demo.remove();
+  }
+</script>
+-->
+
+<!-- =====================================================================
+     ONETRUST · EMBEDDED WEB FORM (Newsletter-Popup, Collection Point WEB)
+     ---------------------------------------------------------------------
+     LIVE — Production Integration Script aus dem OneTrust Admin.
+       data-id  = Web Form ID          89af9315-196c-45ad-88ea-1b8ec3fe5a51
+       Layout   = INLINE               → rendert in <div id="ot-container">
+       CP-ID    = Button-Trigger-ID OHNE das "ot-"-Präfix
+                  ot-b90a1a08-…430d  →  b90a1a08-…430d
+                  (siehe OT_CONFIG.webformCpIdWeb im Script unten)
+     Der Queue-Stub muss VOR OtFormStub.js stehen.
+     ===================================================================== -->
+<script>
+  window.OtSdk = window.OtSdk || function () { (OtSdk.q = OtSdk.q || []).push(arguments); };
+</script>
+<script src="https://privacyportaltrial.onetrust.com/consent-embedded-forms/consent-receipt-scripts/OtFormStub.js"
+        data-id="89af9315-196c-45ad-88ea-1b8ec3fe5a51"
+        worker="https://consent-api.onetrust.com"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -575,6 +599,9 @@ footer a:hover{color:#fff;text-decoration:underline}
          =============================================================== -->
     <div class="ot-slot">
       <div class="tag">OneTrust Web Form · Collection Point „Web"</div>
+      <!-- Alternativer Trigger laut OneTrust Admin (Button öffnet das Formular on demand):
+           <button class="ot-open-webform" id="b90a1a08-78df-4be5-ac3d-2721a404430d">Open web form</button>
+           Hier nicht nötig, weil das Formular beim Öffnen des Popups inline installiert wird. -->
       <div id="ot-container"></div>
       <div id="otFallback" style="padding:10px 12px 14px">
         <label class="field"><span>E-Mail-Adresse</span><input type="email" id="newsMail" value="anuschka.mader@example.de"></label>
@@ -789,7 +816,7 @@ footer a:hover{color:#fff;text-decoration:underline}
    ===================================================================== */
 window.OT_CONFIG = {
   domainScript : "",   // z. B. "0190a1b2-...-test"   (Cookie-Banner / CMP)
-  webformCpIdWeb : "", // Collection Point WEB: Newsletter-Anmeldung (dieses Popup)
+  webformCpIdWeb : "b90a1a08-78df-4be5-ac3d-2721a404430d", // Collection Point WEB (Button-Trigger-ID ohne "ot-")
   webformCpIdApp : "", // Collection Point APP: Lidl Plus (in app.html) – nur zur Doku
   identifier     : "anuschka.mader@example.de", // Identifier, über den beide CPs zu einem Profil verschmelzen
   prefCenterId : ""    // Preference-Center-ID, falls eingebettet
@@ -889,6 +916,7 @@ function startWebformInstall(){
   var cp = (window.OT_CONFIG||{}).webformCpIdWeb;
   if(!cp){ return; }                       // keine CP-ID → Demo-Formular bleibt sichtbar
   if(otPoller || webformRendered()) return;
+  var fb0=$('otFallback'); if(fb0) fb0.style.display='none';   // Demo-Formular ausblenden, solange OneTrust lädt
   var attempts=0;
   otPoller = setInterval(function(){
     attempts++;
@@ -907,7 +935,10 @@ function startWebformInstall(){
     }
     if(attempts > 60){
       clearInterval(otPoller); otPoller=null;
-      if(!webformRendered()) console.warn('OneTrust Web Form wurde nicht gerendert – Collection Point veröffentlicht? Domain freigegeben?');
+      if(!webformRendered()){
+        var fb=$('otFallback'); if(fb) fb.style.display='';    // Notfall: Demo-Formular wieder einblenden
+        console.warn('OneTrust Web Form wurde nicht gerendert – Collection Point veröffentlicht? Domain freigegeben?');
+      }
     }
   }, 300);
 }
@@ -948,3 +979,10 @@ window.addEventListener('load', function(){ paintChannels(); setTimeout(showCook
 </script>
 </body>
 </html>
+
+Anuschka Theresa Mader
+Senior Solutions Engineer
+anuschka.mader@onetrust.com
++34 603 600 677 
+OneTrust.com 
+Pl. Pablo Ruiz Picasso 11, 28020 Madrid, Spain 
