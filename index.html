@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lidl.de – Demo Mockup (OneTrust)</title>
+
+<!-- =====================================================================
+     ONETRUST · COOKIE BANNER (CMP)
+     ---------------------------------------------------------------------
+     ERSETZEN BEIM GO-LIVE:
+     1) Kommentar unten entfernen und "<DOMAIN-SCRIPT-ID>" durch die echte
+        Domain-Script-ID aus dem OneTrust Admin ersetzen.
+     2) Den Demo-Banner im Markup löschen (Suche: "DEMO COOKIE BANNER").
+     Die Funktion OptanonWrapper() unten wird von OneTrust automatisch
+     aufgerufen, sobald der echte Banner geladen ist.
+     ===================================================================== -->
+<!--
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        type="text/javascript"
+        charset="UTF-8"
+        data-domain-script="<DOMAIN-SCRIPT-ID>"></script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    document.body.classList.add('ot-live');
+    var demo = document.getElementById('cookieDemo');
+    if (demo) demo.remove();
+  }
+</script>
+-->
+
+<!-- =====================================================================
+     ONETRUST · EMBEDDED WEB FORM (Lidl Plus Anmeldung)
+     ---------------------------------------------------------------------
+     ERSETZEN BEIM GO-LIVE:
+     1) Kommentar unten entfernen (Queue-Stub, muss VOR dem Aufruf von
+        OneTrust.webform.InstallCP geladen sein).
+     2) In OT_CONFIG.webformCpId weiter unten die Collection-Point-ID
+        eintragen. Das Formular rendert dann in <div id="ot-container">.
+     ===================================================================== -->
+<!--
+<script src="https://cdn.cookielaw.org/opt-out/otCCPAiab.js"></script>
+<script>
+  window.OtSdk = window.OtSdk || function(){ (OtSdk.q = OtSdk.q || []).push(arguments); };
+</script>
+<script src="https://cdn-ukwest.onetrust.com/webform/OtFormStub.js"></script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blue:#0050AA;
+  --blue-dark:#003C80;
+  --blue-tint:#E8F0F9;
+  --yellow:#FFF000;
+  --red:#E60A14;
+  --red-dark:#C00811;
+  --ink:#12171F;
+  --grey:#5C6674;
+  --line:#E2E6EB;
+  --surface:#F4F6F8;
+  --radius:14px;
+  --shadow:0 2px 10px rgba(18,23,31,.08);
+  --shadow-lg:0 18px 50px rgba(18,23,31,.22);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  color:var(--ink);background:#fff;font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+body.locked{overflow:hidden}
+h1,h2,h3,h4{margin:0;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+p{margin:0 0 12px}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* ---------- Logo ---------- */
+.logo{display:block}
+.logo-sq{width:56px;height:56px}
+
+/* ---------- Header ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:var(--blue);color:#fff}
+.hdr-top{display:flex;align-items:center;gap:22px;padding:12px 0}
+.search{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden;max-width:640px}
+.search input{flex:1;border:0;padding:12px 16px;font-size:15px;font-family:inherit;color:var(--ink)}
+.search input:focus{outline:none}
+.search button{border:0;background:var(--yellow);padding:0 20px;cursor:pointer;display:grid;place-items:center}
+.hdr-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
+.hbtn{display:flex;align-items:center;gap:8px;background:transparent;border:0;color:#fff;
+  padding:9px 12px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:700}
+.hbtn:hover{background:rgba(255,255,255,.14)}
+.hbtn .who{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.subnav{background:var(--blue-dark)}
+.subnav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.subnav a{display:block;padding:12px 16px;color:#fff;text-decoration:none;font-size:14px;font-weight:700}
+.subnav a:hover{background:rgba(255,255,255,.12)}
+.subnav .pill{color:var(--blue);background:var(--yellow)}
+.subnav .pill:hover{background:#ffe600}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(100deg,var(--blue) 0%,#0061cc 100%);color:#fff;position:relative;overflow:hidden}
+.hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;padding:44px 0 52px}
+.eyebrow{display:inline-block;background:var(--yellow);color:var(--blue);font-weight:900;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:4px}
+.hero h1{font-size:clamp(34px,4.6vw,58px);margin:16px 0 14px;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--yellow)}
+.hero p{font-size:18px;max-width:46ch;color:rgba(255,255,255,.92)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{border:0;border-radius:8px;padding:14px 24px;font-size:16px;font-weight:800;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.15s}
+.btn-y{background:var(--yellow);color:var(--blue)}
+.btn-y:hover{background:#ffe600;transform:translateY(-1px)}
+.btn-o{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.btn-o:hover{background:rgba(255,255,255,.14)}
+.btn-b{background:var(--blue);color:#fff}
+.btn-b:hover{background:var(--blue-dark)}
+.btn-ghost{background:var(--surface);color:var(--ink)}
+.btn-ghost:hover{background:#e9edf1}
+.hero-card{background:#fff;border-radius:18px;padding:22px;color:var(--ink);box-shadow:var(--shadow-lg);
+  display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hcard{background:var(--surface);border-radius:12px;padding:14px;position:relative;min-height:132px;display:flex;flex-direction:column;justify-content:flex-end}
+.hcard .emo{position:absolute;top:10px;left:12px;font-size:30px}
+.hcard b{font-size:14px;display:block;line-height:1.25}
+.hcard s{color:var(--grey);font-size:12px}
+.sticker{position:absolute;top:-8px;right:-6px;background:var(--yellow);color:var(--red);
+  font-weight:900;font-size:15px;padding:9px 10px;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,.16);
+  transform:rotate(-8deg);border:2px solid var(--red)}
+
+/* ---------- Sections ---------- */
+section.band{padding:52px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
+.sec-head h2{font-size:30px;text-transform:uppercase}
+.sec-head span{color:var(--grey);font-size:15px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column;transition:.16s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card .pic{height:170px;background:var(--surface);display:grid;place-items:center;font-size:64px;position:relative}
+.badge{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-size:11px;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:4px}
+.badge.plus{background:var(--yellow);color:var(--blue)}
+.card .body{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .body b{font-size:16px;line-height:1.25}
+.card .body small{color:var(--grey);font-size:13px}
+.price{margin-top:auto;display:flex;align-items:baseline;gap:10px;padding-top:8px}
+.price .now{font-size:28px;font-weight:900;color:var(--red)}
+.price .was{font-size:14px;color:var(--grey);text-decoration:line-through}
+
+/* ---------- Plus band ---------- */
+.plusband{background:var(--yellow)}
+.plusband .in{display:flex;align-items:center;gap:34px;padding:38px 0}
+.plusband h2{font-size:30px;text-transform:uppercase;color:var(--blue)}
+.plusband p{color:#2b3340;margin:8px 0 0;max-width:60ch;font-weight:600}
+.plusband .cta{margin-left:auto;flex-shrink:0}
+.pluslogo{background:var(--blue);color:#fff;border-radius:12px;padding:14px 18px;font-weight:900;font-size:22px;letter-spacing:-.02em}
+.pluslogo span{color:var(--yellow)}
+
+/* ---------- Footer ---------- */
+footer{background:#12171F;color:#B9C1CC;padding:44px 0 30px;font-size:14px;margin-top:20px}
+.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-bottom:30px}
+footer h4{color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+.legal{border-top:1px solid #262d38;padding-top:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.linkbtn{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0;text-decoration:underline}
+.linkbtn:hover{color:#fff}
+
+/* ---------- Overlays ---------- */
+.scrim{position:fixed;inset:0;background:rgba(10,18,30,.55);backdrop-filter:blur(2px);z-index:100;display:none}
+.scrim.on{display:block}
+.modal{position:fixed;z-index:101;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(480px,calc(100vw - 32px));max-height:88vh;overflow:auto;background:#fff;border-radius:18px;
+  box-shadow:var(--shadow-lg);display:none}
+/* WICHTIG: Modals werden über display:none/block geschaltet und NICHT über opacity:0.
+   Das OneTrust-Webform-SDK rendert nicht in Container, die kein Layout haben –
+   der Install-Aufruf erfolgt deshalb erst beim Öffnen (siehe openPlus()). */
+.modal.on{display:block}
+.modal-head{padding:26px 26px 18px;position:relative}
+.modal-head.blue{background:var(--blue);color:#fff;border-radius:18px 18px 0 0}
+.modal-head h3{font-size:24px;text-transform:uppercase}
+.modal-head p{margin:10px 0 0;font-size:15px;opacity:.92}
+.x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.18);color:#fff;display:grid;place-items:center}
+.x.dark{background:var(--surface);color:var(--ink)}
+.x:hover{filter:brightness(1.12)}
+.modal-body{padding:22px 26px 26px}
+.field{display:block;margin-bottom:14px}
+.field span{display:block;font-size:13px;font-weight:800;margin-bottom:6px;color:var(--grey)}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:9px;
+  font-size:15px;font-family:inherit;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue)}
+.check{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:#39424f;margin-bottom:12px;cursor:pointer}
+.check input{margin-top:3px;width:18px;height:18px;accent-color:var(--blue);flex-shrink:0}
+.fineprint{font-size:12px;color:var(--grey);line-height:1.45;margin-top:14px}
+
+/* ONETRUST SLOT */
+.ot-slot{border:2px dashed #C7D3E2;border-radius:12px;padding:4px;background:#FAFCFF;margin-bottom:6px}
+.ot-slot .tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8496AC;font-weight:900;padding:6px 8px 2px}
+#ot-container:empty{display:none}
+
+/* ---------- Preference Center ---------- */
+.pc{position:fixed;inset:0;z-index:105;background:var(--surface);overflow:auto;display:none}
+.pc.on{display:block}
+.pc-top{background:var(--blue);color:#fff;padding:18px 0}
+.pc-top .in{display:flex;align-items:center;gap:16px}
+.pc-top h2{font-size:22px;text-transform:uppercase}
+.pc-top .x{position:static;margin-left:auto}
+.pc-grid{display:grid;grid-template-columns:260px 1fr;gap:26px;padding:26px 0 60px}
+.pc-nav{position:sticky;top:26px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.pc-nav a{display:block;padding:13px 16px;text-decoration:none;font-weight:700;font-size:14px;border-left:4px solid transparent}
+.pc-nav a:hover{background:var(--blue-tint);border-left-color:var(--blue)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.panel h3{font-size:19px;text-transform:uppercase;margin-bottom:6px}
+.panel .lead{color:var(--grey);font-size:14px;margin-bottom:18px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rows{display:grid;gap:2px}
+.row{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .txt{flex:1}
+.row b{display:block;font-size:15px}
+.row small{color:var(--grey);font-size:13px}
+.sw{position:relative;width:52px;height:30px;flex-shrink:0}
+.sw input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.sw i{position:absolute;inset:0;background:#CFD6DE;border-radius:30px;transition:.18s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;background:#fff;border-radius:50%;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw input:checked + i{background:var(--blue)}
+.sw input:checked + i:after{transform:translateX(22px)}
+.sw input:focus-visible + i{outline:3px solid var(--blue);outline-offset:2px}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg label{border:1.5px solid var(--line);border-radius:9px;padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;background:#fff}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){border-color:var(--blue);background:var(--blue-tint);color:var(--blue)}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips label{display:flex;gap:11px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;font-size:14px;font-weight:600;cursor:pointer}
+.chips input{width:18px;height:18px;accent-color:var(--blue)}
+.chips label:has(input:checked){border-color:var(--blue);background:var(--blue-tint)}
+.savebar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:16px 0;
+  display:flex;gap:12px;align-items:center;margin-top:8px}
+.savebar span{color:var(--grey);font-size:13px}
+
+/* ---------- DEMO cookie banner ---------- */
+.cookie{position:fixed;left:0;right:0;bottom:0;z-index:110;background:#fff;border-top:4px solid var(--blue);
+  box-shadow:0 -10px 40px rgba(0,0,0,.18);padding:22px 0;display:none}
+.cookie.on{display:block}
+.cookie .in{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}
+.cookie h3{font-size:19px;text-transform:uppercase;margin-bottom:6px}
+.cookie p{font-size:13.5px;color:var(--grey);margin:0;max-width:80ch}
+.cookie .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.cookie .btn{padding:12px 18px;font-size:14px}
+.ot-note{margin-top:12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8496AC;font-weight:900}
+
+/* ---------- Toast + dev switcher ---------- */
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,140%);z-index:200;background:var(--ink);
+  color:#fff;padding:14px 22px;border-radius:10px;font-weight:700;font-size:14px;box-shadow:var(--shadow-lg);transition:.28s}
+.toast.on{transform:translate(-50%,0)}
+/* DEV-ONLY: kompletter Block kann vor Übergabe gelöscht werden (id="devbar") */
+.devbar{position:fixed;right:16px;bottom:16px;z-index:150;background:#12171F;color:#fff;border-radius:12px;
+  padding:12px;font-size:12px;box-shadow:var(--shadow-lg);width:212px}
+.devbar b{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8B95A3;margin-bottom:8px}
+.devbar button{display:block;width:100%;text-align:left;background:#1D2530;color:#fff;border:0;border-radius:7px;
+  padding:8px 10px;margin-bottom:5px;cursor:pointer;font-size:12px;font-weight:700}
+.devbar button:hover{background:#2B3543}
+.devbar .mini{position:absolute;top:8px;right:8px;width:22px;height:22px;padding:0;text-align:center;line-height:1}
+.devbar.min .rows2{display:none}
+
+@media (max-width:1000px){
+  .hero-in{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .fcols{grid-template-columns:1fr 1fr}
+  .pc-grid{grid-template-columns:1fr}
+  .pc-nav{display:none}
+  .plusband .in{flex-wrap:wrap}
+  .cookie .in{grid-template-columns:1fr}
+  .cookie .btns{justify-content:flex-start}
+}
+@media (max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .f2,.chips{grid-template-columns:1fr}
+  .subnav{overflow:auto}
+  .hdr-actions .who{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="hdr">
+  <div class="wrap hdr-top">
+    <!-- Lidl Logo (inline SVG, keine externen Assets) -->
+    <svg class="logo logo-sq" viewBox="0 0 100 100" role="img" aria-label="Lidl">
+      <rect width="100" height="100" rx="6" fill="#0050AA"/>
+      <circle cx="50" cy="50" r="34" fill="#FFF000" stroke="#E60A14" stroke-width="6"/>
+      <text x="50" y="62" text-anchor="middle" font-family="Archivo, Arial, sans-serif"
+            font-size="34" font-weight="900" fill="#0050AA">Li<tspan fill="#E60A14">d</tspan>l</text>
+    </svg>
+    <form class="search" onsubmit="event.preventDefault();toast('Suche ist im Mockup deaktiviert')">
+      <input type="search" placeholder="Wonach suchst du?" aria-label="Suche">
+      <button type="submit" aria-label="Suchen">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0050AA" stroke-width="3" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+    </form>
+    <div class="hdr-actions">
+      <button class="hbtn" onclick="toast('Filialfinder ist im Mockup deaktiviert')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        Filiale
+      </button>
+      <button class="hbtn" id="accountBtn" onclick="accountClick()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.2-4 4-6 7.5-6s6.3 2 7.5 6"/></svg>
+        <span class="who" id="accountLabel">Anmelden</span>
+      </button>
+    </div>
+  </div>
+  <nav class="subnav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#angebote">Angebote</a></li>
+        <li><a href="#" onclick="event.preventDefault();toast('Prospekte sind im Mockup deaktiviert')">Prospekte</a></li>
+        <li><a href="#" onclick="event.preventDefault();toast('Onlineshop ist im Mockup deaktiviert')">Onlineshop</a></li>
+        <li><a href="#" onclick="event.preventDefault();toast('Rezepte sind im Mockup deaktiviert')">Rezepte</a></li>
+        <li><a class="pill" href="#" onclick="event.preventDefault();plusNavClick()">Lidl Plus</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="eyebrow">Gültig ab Montag</span>
+      <h1>Die Angebote<br><em>der Woche</em></h1>
+      <p>Frische zum Discountpreis – jede Woche neu in deiner Filiale. Mit Lidl Plus sparst du zusätzlich mit persönlichen Coupons.</p>
+      <div class="hero-cta">
+        <a class="btn btn-y" href="#angebote">Angebote ansehen</a>
+        <button class="btn btn-o" onclick="plusNavClick()">Lidl Plus entdecken</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hcard"><span class="emo">🍓</span><span class="sticker">-40%</span><b>Erdbeeren 500 g</b><s>2,49 €</s></div>
+      <div class="hcard"><span class="emo">🥑</span><b>Avocado, 2 Stück</b><s>2,29 €</s></div>
+      <div class="hcard"><span class="emo">🧀</span><b>Bergkäse 200 g</b><s>3,49 €</s></div>
+      <div class="hcard"><span class="emo">☕</span><span class="sticker">1,99</span><b>Kaffee, ganze Bohne</b><s>4,99 €</s></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ANGEBOTE ===================== -->
+<section class="band wrap" id="angebote">
+  <div class="sec-head">
+    <h2>Angebot der Woche</h2>
+    <span>Gültig bis Samstag, solange der Vorrat reicht</span>
+  </div>
+  <div class="grid">
+    <article class="card">
+      <div class="pic">🍓<span class="badge">Frische</span></div>
+      <div class="body"><b>Deutsche Erdbeeren</b><small>500-g-Schale · 1 kg = 2,98 €</small>
+        <div class="price"><span class="now">1,49 €</span><span class="was">2,49 €</span></div></div>
+    </article>
+    <article class="card">
+      <div class="pic">☕<span class="badge plus">Nur mit Lidl Plus</span></div>
+      <div class="body"><b>Bellarom Kaffeebohnen</b><small>1000 g · 1 kg = 8,99 €</small>
+        <div class="price"><span class="now">8,99 €</span><span class="was">12,99 €</span></div></div>
+    </article>
+    <article class="card">
+      <div class="pic">🥐<span class="badge">Backshop</span></div>
+      <div class="body"><b>Buttercroissants</b><small>4 Stück · 1 Stück = 0,30 €</small>
+        <div class="price"><span class="now">1,19 €</span><span class="was">1,79 €</span></div></div>
+    </article>
+    <article class="card">
+      <div class="pic">🧴<span class="badge">Aktion</span></div>
+      <div class="body"><b>Cien Duschgel</b><small>300 ml · 1 l = 2,63 €</small>
+        <div class="price"><span class="now">0,79 €</span><span class="was">1,29 €</span></div></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== LIDL PLUS BAND ===================== -->
+<section class="plusband">
+  <div class="wrap in">
+    <div class="pluslogo">Lidl <span>Plus</span></div>
+    <div>
+      <h2>Sparen, das sich lohnt</h2>
+      <p>Persönliche Coupons, digitale Kassenbons, Punkte sammeln und Partnervorteile – kostenlos für dich.</p>
+    </div>
+    <div class="cta"><button class="btn btn-b" onclick="plusNavClick()">Jetzt beitreten</button></div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><h4>Einkaufen</h4><ul>
+        <li><a href="#angebote">Angebote</a></li><li><a href="#angebote">Prospekte</a></li>
+        <li><a href="#angebote">Onlineshop</a></li><li><a href="#angebote">Filialfinder</a></li></ul></div>
+      <div><h4>Lidl Plus</h4><ul>
+        <li><a href="#" onclick="event.preventDefault();plusNavClick()">Vorteile</a></li>
+        <li><a href="#" onclick="event.preventDefault();plusNavClick()">App herunterladen</a></li>
+        <li><a href="#" onclick="event.preventDefault();openPC()">Mein Konto</a></li></ul></div>
+      <div><h4>Unternehmen</h4><ul>
+        <li><a href="#angebote">Über Lidl</a></li><li><a href="#angebote">Karriere</a></li>
+        <li><a href="#angebote">Nachhaltigkeit</a></li><li><a href="#angebote">Presse</a></li></ul></div>
+      <div><h4>Service</h4><ul>
+        <li><a href="#angebote">Kontakt</a></li><li><a href="#angebote">Häufige Fragen</a></li>
+        <li><a href="#angebote">Rückrufe</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Lidl Dienstleistung GmbH &amp; Co. KG</span>
+      <a href="#angebote">Impressum</a>
+      <a href="#angebote">Datenschutz</a>
+      <!-- Öffnet den OneTrust-Banner erneut (live: OneTrust.ToggleInfoDisplay()) -->
+      <button class="linkbtn" onclick="openCookieSettings()">Cookie-Einstellungen</button>
+      <button class="linkbtn" onclick="openPC('privacy')">Datenschutzeinstellungen</button>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== SCRIM ===================== -->
+<div class="scrim" id="scrim" onclick="closeAll()"></div>
+
+<!-- ===================== LOGIN MODAL ===================== -->
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+  <div class="modal-head blue">
+    <button class="x" onclick="closeAll()" aria-label="Schließen">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <h3 id="loginTitle">Willkommen zurück</h3>
+    <p>Melde dich an und sieh deine persönlichen Angebote.</p>
+  </div>
+  <div class="modal-body">
+    <label class="field"><span>E-Mail-Adresse</span><input type="email" id="loginMail" value="anna.becker@example.de"></label>
+    <label class="field"><span>Passwort</span><input type="password" value="••••••••"></label>
+    <button class="btn btn-b" style="width:100%;justify-content:center" onclick="doLogin()">Anmelden</button>
+    <p class="fineprint">Noch kein Konto? Im Mockup führt jede Anmeldung direkt zum eingeloggten Zustand („Hallo Anna“).</p>
+  </div>
+</div>
+
+<!-- ===================== LIDL PLUS SIGN-UP POPUP =====================
+     Zielzustand: Nutzer ist eingeloggt, aber NOCH KEIN Lidl Plus Mitglied.
+     Hier wird die Marketing-Einwilligung erhoben – über das eingebettete
+     OneTrust Web Form in #ot-container.
+     ================================================================== -->
+<div class="modal" id="plusModal" role="dialog" aria-modal="true" aria-labelledby="plusTitle">
+  <div class="modal-head blue">
+    <button class="x" onclick="closeAll()" aria-label="Schließen">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="pluslogo" style="display:inline-block;background:#fff;color:var(--blue);padding:8px 12px;font-size:18px;margin-bottom:12px">Lidl <span style="color:var(--red)">Plus</span></div>
+    <h3 id="plusTitle">Jetzt Lidl Plus beitreten</h3>
+    <p>Exklusive Coupons, digitale Kassenbons, Punkte sammeln – kostenlos.</p>
+  </div>
+  <div class="modal-body">
+    <div class="rows" style="margin-bottom:18px">
+      <div class="row" style="padding:9px 0"><span style="font-size:22px">🎟️</span><div class="txt"><b>Persönliche Coupons</b><small>Jede Woche neu, direkt an der Kasse eingelöst</small></div></div>
+      <div class="row" style="padding:9px 0"><span style="font-size:22px">🧾</span><div class="txt"><b>Digitale Kassenbons</b><small>Alle Belege gesammelt in deinem Konto</small></div></div>
+      <div class="row" style="padding:9px 0"><span style="font-size:22px">⭐</span><div class="txt"><b>Punkte &amp; Partnervorteile</b><small>Ein Euro Einkaufswert, ein Punkt</small></div></div>
+    </div>
+
+    <!-- ===============================================================
+         ONETRUST · EMBEDDED WEB FORM SLOT
+         ---------------------------------------------------------------
+         LIVE: OT_CONFIG.webformCpId setzen (siehe Script unten).
+         Das Formular wird per
+           OneTrust.webform.InstallCP("<CP_ID>", { target: "#ot-container" })
+         gerendert – und zwar ERST beim Öffnen dieses Popups, weil das SDK
+         nicht in unsichtbare/nicht gelayoutete Container rendert.
+         Solange keine CP-ID gesetzt ist, greift das Demo-Formular darunter.
+         =============================================================== -->
+    <div class="ot-slot">
+      <div class="tag">OneTrust Web Form</div>
+      <div id="ot-container"></div>
+      <div id="otFallback" style="padding:10px 12px 14px">
+        <label class="field"><span>E-Mail-Adresse</span><input type="email" id="plusMail" value="anna.becker@example.de"></label>
+        <label class="check"><input type="checkbox" id="cWerbung" checked>
+          <span>Ja, ich möchte Angebote, Coupons und Neuigkeiten von Lidl per E-Mail und Push erhalten. Die Einwilligung kann ich jederzeit widerrufen.</span></label>
+        <label class="check"><input type="checkbox" id="cPerso" checked>
+          <span>Meine Einkaufsdaten dürfen zur Personalisierung meiner Coupons ausgewertet werden.</span></label>
+        <label class="check"><input type="checkbox" id="cAgb">
+          <span>Ich akzeptiere die Teilnahmebedingungen für Lidl Plus.</span></label>
+      </div>
+    </div>
+
+    <button class="btn btn-b" style="width:100%;justify-content:center;margin-top:8px" id="plusSubmit" onclick="joinPlus()">Kostenlos beitreten</button>
+    <p class="fineprint">Deine Einstellungen kannst du jederzeit im <button class="linkbtn" style="color:var(--blue)" onclick="openPC('comms')">Preference Center</button> ändern.</p>
+  </div>
+</div>
+
+<!-- ===================== PREFERENCE CENTER ===================== -->
+<div class="pc" id="pc" role="dialog" aria-modal="true" aria-label="Meine Einstellungen">
+  <div class="pc-top">
+    <div class="wrap in">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+        <rect width="100" height="100" rx="6" fill="#fff"/>
+        <circle cx="50" cy="50" r="34" fill="#FFF000" stroke="#E60A14" stroke-width="6"/>
+      </svg>
+      <h2>Meine Einstellungen</h2>
+      <button class="x dark" onclick="closePC()" aria-label="Schließen">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="wrap pc-grid">
+    <nav class="pc-nav">
+      <a href="#p-daten">Meine Daten</a>
+      <a href="#p-comms">Kommunikationspräferenzen</a>
+      <a href="#p-freq">Frequenz</a>
+      <a href="#p-themen">Themen &amp; Interessen</a>
+      <a href="#p-privacy">Datenschutz &amp; Einwilligungen</a>
+    </nav>
+    <div>
+      <!-- Meine Daten -->
+      <section class="panel" id="p-daten">
+        <h3>Meine Daten</h3>
+        <p class="lead">Diese Angaben nutzen wir für dein Konto und deine persönlichen Angebote.</p>
+        <div class="f2">
+          <label class="field"><span>Vorname</span><input type="text" value="Anna"></label>
+          <label class="field"><span>Nachname</span><input type="text" value="Becker"></label>
+          <label class="field"><span>E-Mail-Adresse</span><input type="email" value="anna.becker@example.de"></label>
+          <label class="field"><span>Mobilnummer</span><input type="tel" value="+49 151 2345678"></label>
+          <label class="field"><span>Straße und Hausnummer</span><input type="text" value="Musterweg 12"></label>
+          <label class="field"><span>PLZ und Ort</span><input type="text" value="74172 Neckarsulm"></label>
+          <label class="field"><span>Geburtsdatum</span><input type="date" value="1991-04-17"></label>
+          <label class="field"><span>Lieblingsfiliale</span>
+            <select><option>Neckarsulm, Binswanger Str. 3</option><option>Heilbronn, Weinsberger Str. 44</option><option>Stuttgart, Königstr. 2</option></select></label>
+        </div>
+      </section>
+
+      <!-- Kommunikationspräferenzen -->
+      <section class="panel" id="p-comms">
+        <h3>Kommunikationspräferenzen</h3>
+        <p class="lead">Über welche Kanäle dürfen wir dich kontaktieren?</p>
+        <div class="rows">
+          <div class="row"><div class="txt"><b>E-Mail</b><small>Angebote, Coupons und Neuigkeiten</small></div>
+            <label class="sw"><input type="checkbox" id="chEmail" checked><i></i><span class="sr" hidden>E-Mail</span></label></div>
+          <div class="row"><div class="txt"><b>Push-Nachricht</b><small>Nur über die Lidl Plus App</small></div>
+            <label class="sw"><input type="checkbox" id="chPush" checked><i></i></label></div>
+          <div class="row"><div class="txt"><b>SMS</b><small>Kurzhinweise zu Coupons und Gewinnspielen</small></div>
+            <label class="sw"><input type="checkbox" id="chSms"><i></i></label></div>
+          <div class="row"><div class="txt"><b>Post</b><small>Handzettel und Aktionen an deine Adresse</small></div>
+            <label class="sw"><input type="checkbox" id="chPost"><i></i></label></div>
+          <div class="row"><div class="txt"><b>WhatsApp</b><small>Angebote über den Lidl WhatsApp-Kanal</small></div>
+            <label class="sw"><input type="checkbox" id="chWa"><i></i></label></div>
+        </div>
+      </section>
+
+      <!-- Frequenz -->
+      <section class="panel" id="p-freq">
+        <h3>Frequenz</h3>
+        <p class="lead">Wie oft möchtest du von uns hören?</p>
+        <div class="seg">
+          <label><input type="radio" name="freq" value="taeglich">Täglich</label>
+          <label><input type="radio" name="freq" value="woechentlich" checked>Wöchentlich</label>
+          <label><input type="radio" name="freq" value="monatlich">Monatlich</label>
+          <label><input type="radio" name="freq" value="highlights">Nur bei Highlights</label>
+        </div>
+      </section>
+
+      <!-- Themen -->
+      <section class="panel" id="p-themen">
+        <h3>Themen &amp; Interessen</h3>
+        <p class="lead">Wir schicken dir nur, was du ausgewählt hast.</p>
+        <div class="chips">
+          <label><input type="checkbox" checked>Angebote &amp; Coupons</label>
+          <label><input type="checkbox" checked>Lidl Plus Vorteile</label>
+          <label><input type="checkbox">Non-Food &amp; Aktionswelt</label>
+          <label><input type="checkbox" checked>Rezepte</label>
+          <label><input type="checkbox">Nachhaltigkeit</label>
+          <label><input type="checkbox">Partnervorteile</label>
+        </div>
+      </section>
+
+      <!-- Datenschutz -->
+      <section class="panel" id="p-privacy">
+        <h3>Datenschutz &amp; Einwilligungen</h3>
+        <p class="lead">Du entscheidest, wie wir deine Daten verwenden dürfen.</p>
+        <div class="rows" style="margin-bottom:18px">
+          <div class="row"><div class="txt"><b>Personalisierte Angebote</b><small>Coupons passend zu deinen Einkäufen</small></div>
+            <label class="sw"><input type="checkbox" checked><i></i></label></div>
+          <div class="row"><div class="txt"><b>Auswertung von Kaufdaten</b><small>Analyse deiner Einkäufe zur Verbesserung des Sortiments</small></div>
+            <label class="sw"><input type="checkbox" checked><i></i></label></div>
+          <div class="row"><div class="txt"><b>Digitale Kassenbons</b><small>Belege werden 24 Monate in deinem Konto gespeichert</small></div>
+            <label class="sw"><input type="checkbox" checked><i></i></label></div>
+        </div>
+
+        <!-- ===========================================================
+             ONETRUST · PREFERENCE CENTER EMBED SLOT
+             LIVE: Hier den eingebetteten OneTrust Preference Center
+             rendern lassen (Ziel-Selector: #ot-pref-center).
+             Danach können die Demo-Zeilen oben entfallen.
+             =========================================================== -->
+        <div class="ot-slot">
+          <div class="tag">OneTrust Preference Center</div>
+          <div id="ot-pref-center"></div>
+          <div id="pcFallback" style="padding:6px 12px 14px;color:var(--grey);font-size:13px">
+            Platzhalter – der eingebettete OneTrust Preference Center rendert an dieser Stelle.
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-ghost" onclick="openCookieSettings()">Cookie-Einstellungen öffnen</button>
+          <button class="btn btn-ghost" onclick="toast('Datenauskunft ist im Mockup deaktiviert')">Meine Daten herunterladen</button>
+        </div>
+      </section>
+
+      <div class="savebar">
+        <button class="btn btn-b" onclick="savePC()">Einstellungen speichern</button>
+        <button class="btn btn-ghost" onclick="closePC()">Abbrechen</button>
+        <span>Änderungen gelten für alle Lidl Kanäle.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DEMO COOKIE BANNER =====================
+     PLATZHALTER – wird beim Go-live durch den echten OneTrust-Banner
+     ersetzt. Diesen gesamten Block dann löschen.
+     ============================================================ -->
+<div class="cookie" id="cookieDemo" role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="wrap in">
+    <div>
+      <h3>Wir verwenden Cookies</h3>
+      <p>Wir und unsere Partner setzen Cookies ein, um die Website bereitzustellen, Inhalte zu personalisieren und Werbung auszuspielen. Du kannst deine Auswahl jederzeit in den Cookie-Einstellungen ändern.</p>
+      <div class="ot-note">Platzhalter · hier wird der OneTrust CMP-Banner eingebunden</div>
+    </div>
+    <div class="btns">
+      <button class="btn btn-ghost" onclick="cookieChoice('reject')">Nur notwendige</button>
+      <button class="btn btn-ghost" onclick="cookieChoice('settings')">Einstellungen</button>
+      <button class="btn btn-b" onclick="cookieChoice('accept')">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ===================== DEV SWITCHER (vor Übergabe löschbar) ===================== -->
+<div class="devbar" id="devbar">
+  <button class="mini" onclick="document.getElementById('devbar').classList.toggle('min')" aria-label="Ein-/ausklappen">–</button>
+  <b>Demo-Steuerung</b>
+  <div class="rows2">
+    <button onclick="setState('cookie')">1 · Cookie-Banner</button>
+    <button onclick="setState('anon')">2 · Anonym (Gerät)</button>
+    <button onclick="setState('login')">3 · Login-Fenster</button>
+    <button onclick="setState('known')">4 · Eingeloggt, kein Plus</button>
+    <button onclick="openPlus()">5 · Lidl Plus Popup</button>
+    <button onclick="setState('plus')">6 · Lidl Plus Mitglied</button>
+    <button onclick="openPC()">7 · Preference Center</button>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   ONETRUST KONFIGURATION – hier die IDs eintragen
+   ===================================================================== */
+window.OT_CONFIG = {
+  domainScript : "",   // z. B. "0190a1b2-...-test"   (Cookie-Banner / CMP)
+  webformCpId  : "",   // z. B. "4574b7d1-...-ad8"    (Lidl Plus Web Form)
+  prefCenterId : ""    // Preference-Center-ID, falls eingebettet
+};
+
+/* ---------------- Demo-Status ---------------- */
+var STATE = { loggedIn:false, plus:false };
+
+function $(id){ return document.getElementById(id); }
+
+function toast(msg){
+  var t=$('toast'); t.textContent=msg; t.classList.add('on');
+  clearTimeout(t._h); t._h=setTimeout(function(){ t.classList.remove('on'); },2600);
+}
+
+/* ---------------- Cookie-Banner (Demo) ---------------- */
+function showCookie(){ $('cookieDemo').classList.add('on'); }
+function hideCookie(){ $('cookieDemo').classList.remove('on'); }
+function cookieChoice(kind){
+  hideCookie();
+  toast(kind==='accept' ? 'Alle Cookies akzeptiert' :
+        kind==='reject' ? 'Nur notwendige Cookies aktiv' : 'Cookie-Einstellungen gespeichert');
+}
+/* LIVE: OneTrust.ToggleInfoDisplay() öffnet das echte Banner erneut. */
+function openCookieSettings(){
+  if (window.OneTrust && OneTrust.ToggleInfoDisplay) { OneTrust.ToggleInfoDisplay(); return; }
+  showCookie();
+}
+
+/* ---------------- Login ---------------- */
+function accountClick(){ STATE.loggedIn ? openPC() : openLogin(); }
+function openLogin(){ openModal('loginModal'); }
+function doLogin(){
+  STATE.loggedIn = true;
+  $('accountLabel').textContent = 'Hallo Anna';
+  closeAll();
+  toast('Angemeldet als Anna Becker');
+  if(!STATE.plus) setTimeout(openPlus, 700);   // eingeloggt, aber kein Lidl Plus
+}
+
+/* ---------------- Lidl Plus ---------------- */
+function plusNavClick(){
+  if(STATE.plus){ openPC('comms'); return; }
+  if(!STATE.loggedIn){ openLogin(); return; }
+  openPlus();
+}
+function joinPlus(){
+  STATE.plus = true;
+  closeAll();
+  toast('Willkommen bei Lidl Plus – Einstellungen gespeichert');
+}
+
+/* ---------------- Modal-Handling ----------------
+   Modals werden per display umgeschaltet (nicht opacity), damit der
+   OneTrust-Container beim Install echtes Layout hat. */
+function openModal(id){
+  closeAll(true);
+  $('scrim').classList.add('on');
+  $(id).classList.add('on');
+  document.body.classList.add('locked');
+}
+function openPlus(){
+  openModal('plusModal');
+  startWebformInstall();        // Install erst JETZT – Container ist sichtbar
+}
+function closeAll(keepLock){
+  ['loginModal','plusModal'].forEach(function(id){ $(id).classList.remove('on'); });
+  $('scrim').classList.remove('on');
+  if(!keepLock) document.body.classList.remove('locked');
+}
+function plusIsOpen(){ return $('plusModal').classList.contains('on'); }
+
+/* ---------------- Preference Center ---------------- */
+function openPC(anchor){
+  closeAll(true);
+  $('pc').classList.add('on');
+  document.body.classList.add('locked');
+  if(anchor){
+    var t = $('p-'+anchor);
+    if(t) setTimeout(function(){ t.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+  }
+}
+function closePC(){ $('pc').classList.remove('on'); document.body.classList.remove('locked'); }
+function savePC(){ toast('Einstellungen gespeichert'); setTimeout(closePC, 500); }
+
+/* =====================================================================
+   ONETRUST · WEB FORM INSTALL
+   ---------------------------------------------------------------------
+   Wird beim ÖFFNEN des Popups aufgerufen, nicht beim Laden der Seite:
+   das SDK rendert nicht in Container ohne Layout. Der Poller wartet, bis
+   OneTrust.webform.InstallCP verfügbar ist, und stoppt nach dem Rendern.
+   ===================================================================== */
+var otPoller=null, otLastCall=0;
+function otWebformReady(){ return !!(window.OneTrust && window.OneTrust.webform && window.OneTrust.webform.InstallCP); }
+function webformRendered(){ var c=$('ot-container'); return !!(c && c.children.length); }
+function startWebformInstall(){
+  var cp = (window.OT_CONFIG||{}).webformCpId;
+  if(!cp){ return; }                       // keine CP-ID → Demo-Formular bleibt sichtbar
+  if(otPoller || webformRendered()) return;
+  var attempts=0;
+  otPoller = setInterval(function(){
+    attempts++;
+    if(webformRendered()){
+      clearInterval(otPoller); otPoller=null;
+      var fb=$('otFallback'); if(fb) fb.style.display='none';   // Demo-Formular ausblenden
+      return;
+    }
+    if(plusIsOpen() && otWebformReady()){
+      var now=Date.now();
+      if(now-otLastCall >= 1500){
+        otLastCall = now;
+        try{ OneTrust.webform.InstallCP(cp, { target:"#ot-container" }); }
+        catch(e){ console.warn('OneTrust InstallCP fehlgeschlagen:', e); }
+      }
+    }
+    if(attempts > 60){
+      clearInterval(otPoller); otPoller=null;
+      if(!webformRendered()) console.warn('OneTrust Web Form wurde nicht gerendert – Collection Point veröffentlicht? Domain freigegeben?');
+    }
+  }, 300);
+}
+/* Diagnose + Verhalten nach Absenden */
+window.addEventListener('OnetrustFormLoaded', function(e){ console.log('OnetrustFormLoaded', e.detail); });
+window.addEventListener('OneTrustWebFormSubmitted', function(){
+  STATE.plus = true;
+  toast('Einstellungen gespeichert');
+  setTimeout(closeAll, 400);
+});
+
+/* ---------------- Demo-Steuerung ---------------- */
+function setState(s){
+  closeAll(); closePC(); hideCookie();
+  if(s==='cookie'){ showCookie(); return; }
+  if(s==='anon'){ STATE={loggedIn:false,plus:false}; $('accountLabel').textContent='Anmelden'; toast('Zustand: anonym (Gerät)'); return; }
+  if(s==='login'){ openLogin(); return; }
+  if(s==='known'){ STATE={loggedIn:true,plus:false}; $('accountLabel').textContent='Hallo Anna'; toast('Zustand: eingeloggt, kein Lidl Plus'); return; }
+  if(s==='plus'){ STATE={loggedIn:true,plus:true}; $('accountLabel').textContent='Hallo Anna'; toast('Zustand: Lidl Plus Mitglied'); return; }
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){ closeAll(); closePC(); }
+});
+
+/* Startzustand: Cookie-Banner (Geräteebene) */
+window.addEventListener('load', function(){ setTimeout(showCookie, 600); });
+</script>
+</body>
+</html>
