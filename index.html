@@ -105,7 +105,7 @@ button{font-family:inherit}
 .subnav .pill:hover{background:#ffe600}
 
 /* ---------- Hero ---------- */
-.hero{background:linear-gradient(100deg,var(--blue) 0%,#0061cc 100%);color:#fff;position:relative;overflow:hidden}
+.hero{color:#fff;position:relative;overflow:hidden;background-color:var(--blue);background-size:cover;background-position:center}
 .hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;padding:44px 0 52px}
 .eyebrow{display:inline-block;background:var(--yellow);color:var(--blue);font-weight:900;
   font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:4px}
@@ -125,10 +125,15 @@ button{font-family:inherit}
 .btn-ghost:hover{background:#e9edf1}
 .hero-card{background:#fff;border-radius:18px;padding:22px;color:var(--ink);box-shadow:var(--shadow-lg);
   display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.hcard{background:var(--surface);border-radius:12px;padding:14px;position:relative;min-height:132px;display:flex;flex-direction:column;justify-content:flex-end}
-.hcard .emo{position:absolute;top:10px;left:12px;font-size:30px}
-.hcard b{font-size:14px;display:block;line-height:1.25}
-.hcard s{color:var(--grey);font-size:12px}
+.hcard{background:var(--surface);border-radius:12px;padding:12px;position:relative;min-height:138px;
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:#fff}
+.hcard .hphoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hcard:after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(10,20,35,0) 34%,rgba(10,20,35,.82) 100%)}
+.hcard b,.hcard s,.hcard .sticker{position:relative;z-index:2}
+
+.hcard b{font-size:14px;display:block;line-height:1.25;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.hcard s{color:rgba(255,255,255,.85);font-size:12px}
 .sticker{position:absolute;top:-8px;right:-6px;background:var(--yellow);color:var(--red);
   font-weight:900;font-size:15px;padding:9px 10px;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,.16);
   transform:rotate(-8deg);border:2px solid var(--red)}
@@ -142,7 +147,10 @@ section.band{padding:52px 0}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   display:flex;flex-direction:column;transition:.16s}
 .card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
-.card .pic{height:170px;background:var(--surface);display:grid;place-items:center;font-size:64px;position:relative}
+.card .pic{height:170px;background:var(--surface);display:grid;place-items:center;position:relative}
+.card .pic img.photo,.card .pic svg.fb{width:100%;height:100%;object-fit:cover;display:block}
+.card .pic{overflow:hidden}
+
 .badge{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-size:11px;font-weight:900;
   letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:4px}
 .badge.plus{background:var(--yellow);color:var(--blue)}
@@ -181,7 +189,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   box-shadow:var(--shadow-lg);display:none}
 /* WICHTIG: Modals werden über display:none/block geschaltet und NICHT über opacity:0.
    Das OneTrust-Webform-SDK rendert nicht in Container, die kein Layout haben –
-   der Install-Aufruf erfolgt deshalb erst beim Öffnen (siehe openPlus()). */
+   der Install-Aufruf erfolgt deshalb erst beim Öffnen (siehe openNews()). */
 .modal.on{display:block}
 .modal-head{padding:26px 26px 18px;position:relative}
 .modal-head.blue{background:var(--blue);color:#fff;border-radius:18px 18px 0 0}
@@ -200,6 +208,26 @@ footer a:hover{color:#fff;text-decoration:underline}
 .check{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:#39424f;margin-bottom:12px;cursor:pointer}
 .check input{margin-top:3px;width:18px;height:18px;accent-color:var(--blue);flex-shrink:0}
 .fineprint{font-size:12px;color:var(--grey);line-height:1.45;margin-top:14px}
+
+.news-ill{width:66px;height:66px;background:#fff;border-radius:14px;padding:6px;margin-bottom:12px;display:block}
+.row .ic{width:34px;height:34px;border-radius:10px;background:var(--blue-tint);color:var(--blue);
+  display:grid;place-items:center;flex-shrink:0}
+.unify{display:flex;gap:11px;align-items:flex-start;background:var(--blue-tint);border-radius:12px;
+  padding:13px 14px;margin:14px 0 4px;color:var(--blue)}
+.unify p{margin:0;font-size:13px;line-height:1.45;color:#1F3A5C}
+.unify svg{flex-shrink:0;margin-top:2px}
+.chan{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line)}
+.chan:last-of-type{border-bottom:0}
+.chan .ic{width:36px;height:36px;border-radius:10px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center;flex-shrink:0}
+.chan .txt{flex:1}
+.chan b{display:block;font-size:15px}
+.chan small{color:var(--grey);font-size:13px}
+.state{font-size:12px;font-weight:900;letter-spacing:.04em;padding:5px 10px;border-radius:20px;white-space:nowrap}
+.state.ok{background:#DCEFE0;color:#1D7A38}
+.state.off{background:var(--surface);color:var(--grey)}
+.idline{display:flex;align-items:center;gap:10px;background:#12171F;color:#fff;border-radius:10px;
+  padding:11px 14px;font-size:13px;font-weight:700;margin-top:14px}
+.idline code{font-weight:600;opacity:.85}
 
 /* ONETRUST SLOT */
 .ot-slot{border:2px dashed #C7D3E2;border-radius:12px;padding:4px;background:#FAFCFF;margin-bottom:6px}
@@ -292,15 +320,101 @@ footer a:hover{color:#fff;text-decoration:underline}
 </head>
 <body>
 
+
+<!-- =====================================================================
+     BILDNACHWEIS · alle Fotos von Wikimedia Commons (freie Lizenzen),
+     eingebunden über den stabilen Special:FilePath-Redirect.
+       Strawberries.jpg (USDA, PD) · Roasted coffee beans.jpg (PD)
+       Croissant.jpg (CC BY-SA 3.0) · Avocado Hass - single and halved.jpg (CC BY-SA 4.0)
+       Emmental (fromage) 01.jpg (CC BY-SA 3.0) · Bellarom dark chocolate.jpg
+       Campari Tomatoes on the Vine.JPG (CC BY 3.0)
+       Fresh fruits and vegetables in 2020 01.jpg · Supermarket shelves.jpg (CC BY-SA 4.0)
+     Für eine externe Präsentation ggf. durch lizenzierte Produktfotos
+     ersetzen: einfach die src-Attribute der <img class="photo"> tauschen.
+     Fällt ein Bild aus, springt automatisch die SVG-Grafik daneben ein.
+     ===================================================================== -->
+
+<!-- ===== BILD-SPRITE: Produkt- und Icon-Grafiken (inline SVG, keine externen Assets) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="pr-erdbeere" viewBox="0 0 120 120">
+    <path d="M60 113c-19 0-35-17-35-38 0-15 15-25 35-25s35 10 35 25c0 21-16 38-35 38z" fill="#E2231A"/>
+    <path d="M60 55c-9-7-21-9-30-7 3-9 12-15 23-15 2-6 4-11 7-15 3 4 5 9 7 15 11 0 20 6 23 15-9-2-21 0-30 7z" fill="#2E9E4A"/>
+    <g fill="#FFE7A3"><circle cx="47" cy="70" r="3"/><circle cx="62" cy="65" r="3"/><circle cx="75" cy="74" r="3"/><circle cx="54" cy="84" r="3"/><circle cx="69" cy="90" r="3"/><circle cx="60" cy="101" r="3"/><circle cx="42" cy="87" r="3"/><circle cx="80" cy="88" r="3"/></g>
+  </symbol>
+  <symbol id="pr-kaffee" viewBox="0 0 120 120">
+    <ellipse cx="56" cy="103" rx="35" ry="6" fill="#DDE3EA"/>
+    <path d="M24 44h64v28c0 15-12 27-27 27h-10c-15 0-27-12-27-27z" fill="#fff" stroke="#2B2320" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M30 50h52v10a6 6 0 0 1-6 6H36a6 6 0 0 1-6-6z" fill="#6B4A2F"/>
+    <path d="M88 54h6a13 13 0 0 1 0 26h-6" fill="none" stroke="#2B2320" stroke-width="5"/>
+    <path d="M42 20c-6 7 6 11 0 18M58 15c-6 8 6 12 0 20M74 20c-6 7 6 11 0 18" stroke="#AFA79F" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pr-croissant" viewBox="0 0 120 120">
+    <path d="M16 78c0-27 22-45 44-45s44 18 44 45c0 7-7 11-13 7-8-6-19-10-31-10s-23 4-31 10c-6 4-13 0-13-7z" fill="#E8A33D"/>
+    <path d="M16 74c-6 6-3 16 6 17 6 1 9-4 8-10M104 74c6 6 3 16-6 17-6 1-9-4-8-10" fill="#DE9327"/>
+    <path d="M42 47c4 11 4 24 0 35M60 41c3 13 3 28 0 41M78 47c-4 11-4 24 0 35" stroke="#C77E23" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pr-duschgel" viewBox="0 0 120 120">
+    <rect x="48" y="12" width="26" height="15" rx="4" fill="#12507F"/>
+    <path d="M44 28h34c7 0 12 5 12 12v53c0 7-5 12-12 12H44c-7 0-12-5-12-12V40c0-7 5-12 12-12z" fill="#59B6E8"/>
+    <rect x="38" y="52" width="46" height="28" rx="5" fill="#fff" opacity=".9"/>
+    <path d="M46 62h30M46 70h20" stroke="#59B6E8" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pr-avocado" viewBox="0 0 120 120">
+    <path d="M60 14c17 0 31 17 31 42 0 29-14 50-31 50s-31-21-31-50c0-25 14-42 31-42z" fill="#2E7D32"/>
+    <path d="M60 27c11 0 21 13 21 32 0 22-10 36-21 36s-21-14-21-36c0-19 10-32 21-32z" fill="#C6DB6A"/>
+    <ellipse cx="60" cy="64" rx="14" ry="16" fill="#8B5E34"/>
+  </symbol>
+  <symbol id="pr-kaese" viewBox="0 0 120 120">
+    <path d="M16 78 92 32c8-5 14 0 14 8v36c0 7-5 12-12 12H26c-8 0-13-6-10-10z" fill="#F5C518"/>
+    <path d="M16 78 92 32l4 6-74 44z" fill="#FFDE5C"/>
+    <g fill="#E0A800"><circle cx="44" cy="68" r="7"/><circle cx="70" cy="56" r="5"/><circle cx="66" cy="76" r="6"/><circle cx="90" cy="68" r="5"/></g>
+  </symbol>
+  <symbol id="pr-schoko" viewBox="0 0 120 120">
+    <rect x="22" y="30" width="76" height="60" rx="7" fill="#5A3220"/>
+    <g stroke="#3E2214" stroke-width="4" stroke-linecap="round"><path d="M47 32v56M73 32v56M24 50h72M24 70h72"/></g>
+    <path d="M22 37a7 7 0 0 1 7-7h21v60H29a7 7 0 0 1-7-7z" fill="#7A1F3D"/>
+    <path d="M28 46h16M28 56h12" stroke="#F5C518" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pr-brief" viewBox="0 0 120 120">
+    <rect x="16" y="28" width="88" height="64" rx="8" fill="#fff" stroke="#0050AA" stroke-width="5"/>
+    <path d="M18 34l42 32 42-32" fill="none" stroke="#0050AA" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="70" y="60" width="38" height="38" rx="19" fill="#FFF000" stroke="#E60A14" stroke-width="4"/>
+    <path d="M80 79l6 7 12-14" fill="none" stroke="#0050AA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ic-ticket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <path d="M3 8V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a2.4 2.4 0 0 0 0 8v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2a2.4 2.4 0 0 0 0-8z"/><path d="M14 5v14" stroke-dasharray="2 2.6"/></symbol>
+  <symbol id="ic-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <path d="M6 2.8h12v18.4l-2.4-1.6-2.4 1.6-2.4-1.6-2.4 1.6L6 19.6z"/><path d="M9.2 8h5.6M9.2 12h5.6" stroke-linecap="round"/></symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round">
+    <path d="m12 3.4 2.7 5.6 6 .9-4.3 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.3 9.9l6-.9z"/></symbol>
+  <symbol id="ic-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <path d="M3.5 11h17v9.5h-17zM2.5 7.5h19V11h-19zM12 7.5v13"/>
+    <path d="M12 7.5S10.4 3 7.9 3.6C6 4 6.2 7.5 12 7.5zM12 7.5S13.6 3 16.1 3.6C18 4 17.8 7.5 12 7.5z"/></symbol>
+  <symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.2-4 4-6 7.5-6s6.3 2 7.5 6"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round">
+    <rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="m3.2 6.6 8.8 6.6 8.8-6.6"/></symbol>
+  <symbol id="ic-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <rect x="4.5" y="10" width="15" height="10.5" rx="2.4"/><path d="M8 10V7.6a4 4 0 0 1 8 0V10"/></symbol>
+  <symbol id="ic-cookie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+    <path d="M21 12.4A9 9 0 1 1 11.6 3a3.4 3.4 0 0 0 4.6 4.2 3.4 3.4 0 0 0 4.8 5.2z"/>
+    <circle cx="9" cy="14.5" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="9.5" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="12.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="ic-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+    <path d="M10 13.6a4 4 0 0 0 5.7 0l2.8-2.8a4 4 0 1 0-5.7-5.7l-1.5 1.5"/>
+    <path d="M14 10.4a4 4 0 0 0-5.7 0l-2.8 2.8a4 4 0 1 0 5.7 5.7l1.5-1.5"/></symbol>
+</defs></svg>
+
+
 <!-- ===================== HEADER ===================== -->
 <header class="hdr">
   <div class="wrap hdr-top">
     <!-- Lidl Logo (inline SVG, keine externen Assets) -->
-    <svg class="logo logo-sq" viewBox="0 0 100 100" role="img" aria-label="Lidl">
-      <rect width="100" height="100" rx="6" fill="#0050AA"/>
-      <circle cx="50" cy="50" r="34" fill="#FFF000" stroke="#E60A14" stroke-width="6"/>
-      <text x="50" y="62" text-anchor="middle" font-family="Archivo, Arial, sans-serif"
-            font-size="34" font-weight="900" fill="#0050AA">Li<tspan fill="#E60A14">d</tspan>l</text>
+    <svg class="logo logo-sq" viewBox="0 0 120 120" role="img" aria-label="Lidl">
+      <rect width="120" height="120" rx="10" fill="#0050AA"/>
+      <circle cx="60" cy="60" r="45" fill="#FFF000" stroke="#E60A14" stroke-width="7"/>
+      <text x="60" y="75" text-anchor="middle" textLength="68" lengthAdjust="spacingAndGlyphs"
+            font-family="Archivo, Arial Black, Arial, sans-serif" font-size="44" font-weight="900"
+            fill="#0050AA">L<tspan fill="#E60A14">i</tspan>dl</text>
     </svg>
     <form class="search" onsubmit="event.preventDefault();toast('Suche ist im Mockup deaktiviert')">
       <input type="search" placeholder="Wonach suchst du?" aria-label="Suche">
@@ -329,14 +443,14 @@ footer a:hover{color:#fff;text-decoration:underline}
         <li><a href="#" onclick="event.preventDefault();toast('Prospekte sind im Mockup deaktiviert')">Prospekte</a></li>
         <li><a href="#" onclick="event.preventDefault();toast('Onlineshop ist im Mockup deaktiviert')">Onlineshop</a></li>
         <li><a href="#" onclick="event.preventDefault();toast('Rezepte sind im Mockup deaktiviert')">Rezepte</a></li>
-        <li><a class="pill" href="#" onclick="event.preventDefault();plusNavClick()">Lidl Plus</a></li>
+        <li><a class="pill" href="app.html">Lidl Plus App</a></li>
       </ul>
     </div>
   </nav>
 </header>
 
 <!-- ===================== HERO ===================== -->
-<section class="hero">
+<section class="hero" style="background-image:linear-gradient(100deg,rgba(0,60,128,.96) 0%,rgba(0,80,170,.82) 55%,rgba(0,80,170,.35) 100%),url('https://commons.wikimedia.org/wiki/Special:FilePath/Fresh_fruits_and_vegetables_in_2020_01.jpg?width=1400')">
   <div class="wrap hero-in">
     <div>
       <span class="eyebrow">Gültig ab Montag</span>
@@ -344,14 +458,14 @@ footer a:hover{color:#fff;text-decoration:underline}
       <p>Frische zum Discountpreis – jede Woche neu in deiner Filiale. Mit Lidl Plus sparst du zusätzlich mit persönlichen Coupons.</p>
       <div class="hero-cta">
         <a class="btn btn-y" href="#angebote">Angebote ansehen</a>
-        <button class="btn btn-o" onclick="plusNavClick()">Lidl Plus entdecken</button>
+        <button class="btn btn-o" onclick="openNews()">Newsletter abonnieren</button>
       </div>
     </div>
     <div class="hero-card">
-      <div class="hcard"><span class="emo">🍓</span><span class="sticker">-40%</span><b>Erdbeeren 500 g</b><s>2,49 €</s></div>
-      <div class="hcard"><span class="emo">🥑</span><b>Avocado, 2 Stück</b><s>2,29 €</s></div>
-      <div class="hcard"><span class="emo">🧀</span><b>Bergkäse 200 g</b><s>3,49 €</s></div>
-      <div class="hcard"><span class="emo">☕</span><span class="sticker">1,99</span><b>Kaffee, ganze Bohne</b><s>4,99 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strawberries.jpg?width=640" alt="Erdbeeren" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">-40%</span><b>Erdbeeren 500 g</b><s>2,49 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Avocado_Hass_-_single_and_halved.jpg?width=640" alt="Avocado" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><b>Avocado, 2 Stück</b><s>2,29 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Emmental_(fromage)_01.jpg?width=640" alt="Bergkäse" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><b>Bergkäse 200 g</b><s>3,49 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Roasted_coffee_beans.jpg?width=640" alt="Kaffeebohnen" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">1,99</span><b>Kaffee, ganze Bohne</b><s>4,99 €</s></div>
     </div>
   </div>
 </section>
@@ -364,24 +478,24 @@ footer a:hover{color:#fff;text-decoration:underline}
   </div>
   <div class="grid">
     <article class="card">
-      <div class="pic">🍓<span class="badge">Frische</span></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strawberries.jpg?width=640" alt="Erdbeeren" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg class="fb" viewBox="0 0 120 120" style="display:none" aria-hidden="true"><use href="#pr-erdbeere"/></svg><span class="badge">Frische</span></div>
       <div class="body"><b>Deutsche Erdbeeren</b><small>500-g-Schale · 1 kg = 2,98 €</small>
         <div class="price"><span class="now">1,49 €</span><span class="was">2,49 €</span></div></div>
     </article>
     <article class="card">
-      <div class="pic">☕<span class="badge plus">Nur mit Lidl Plus</span></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Roasted_coffee_beans.jpg?width=640" alt="Kaffeebohnen" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg class="fb" viewBox="0 0 120 120" style="display:none" aria-hidden="true"><use href="#pr-kaffee"/></svg><span class="badge plus">Nur mit Lidl Plus</span></div>
       <div class="body"><b>Bellarom Kaffeebohnen</b><small>1000 g · 1 kg = 8,99 €</small>
         <div class="price"><span class="now">8,99 €</span><span class="was">12,99 €</span></div></div>
     </article>
     <article class="card">
-      <div class="pic">🥐<span class="badge">Backshop</span></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Croissant.jpg?width=640" alt="Buttercroissants" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg class="fb" viewBox="0 0 120 120" style="display:none" aria-hidden="true"><use href="#pr-croissant"/></svg><span class="badge">Backshop</span></div>
       <div class="body"><b>Buttercroissants</b><small>4 Stück · 1 Stück = 0,30 €</small>
         <div class="price"><span class="now">1,19 €</span><span class="was">1,79 €</span></div></div>
     </article>
     <article class="card">
-      <div class="pic">🧴<span class="badge">Aktion</span></div>
-      <div class="body"><b>Cien Duschgel</b><small>300 ml · 1 l = 2,63 €</small>
-        <div class="price"><span class="now">0,79 €</span><span class="was">1,29 €</span></div></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Campari_Tomatoes_on_the_Vine.JPG?width=640" alt="Rispentomaten" loading="lazy" decoding="async"><span class="badge">Aktion</span></div>
+      <div class="body"><b>Rispentomaten</b><small>500-g-Schale · 1 kg = 2,38 €</small>
+        <div class="price"><span class="now">1,19 €</span><span class="was">1,79 €</span></div></div>
     </article>
   </div>
 </section>
@@ -392,9 +506,9 @@ footer a:hover{color:#fff;text-decoration:underline}
     <div class="pluslogo">Lidl <span>Plus</span></div>
     <div>
       <h2>Sparen, das sich lohnt</h2>
-      <p>Persönliche Coupons, digitale Kassenbons, Punkte sammeln und Partnervorteile – kostenlos für dich.</p>
+      <p>Persönliche Coupons, digitale Kassenbons und Punkte sammeln. Melde dich in der App mit derselben E-Mail-Adresse an – deine Einwilligungen laufen in einem Profil zusammen.</p>
     </div>
-    <div class="cta"><button class="btn btn-b" onclick="plusNavClick()">Jetzt beitreten</button></div>
+    <div class="cta"><a class="btn btn-b" href="app.html">Zur Lidl Plus App</a></div>
   </div>
 </section>
 
@@ -406,8 +520,8 @@ footer a:hover{color:#fff;text-decoration:underline}
         <li><a href="#angebote">Angebote</a></li><li><a href="#angebote">Prospekte</a></li>
         <li><a href="#angebote">Onlineshop</a></li><li><a href="#angebote">Filialfinder</a></li></ul></div>
       <div><h4>Lidl Plus</h4><ul>
-        <li><a href="#" onclick="event.preventDefault();plusNavClick()">Vorteile</a></li>
-        <li><a href="#" onclick="event.preventDefault();plusNavClick()">App herunterladen</a></li>
+        <li><a href="app.html">Vorteile</a></li>
+        <li><a href="app.html">App-Mockup öffnen</a></li>
         <li><a href="#" onclick="event.preventDefault();openPC()">Mein Konto</a></li></ul></div>
       <div><h4>Unternehmen</h4><ul>
         <li><a href="#angebote">Über Lidl</a></li><li><a href="#angebote">Karriere</a></li>
@@ -440,59 +554,68 @@ footer a:hover{color:#fff;text-decoration:underline}
     <p>Melde dich an und sieh deine persönlichen Angebote.</p>
   </div>
   <div class="modal-body">
-    <label class="field"><span>E-Mail-Adresse</span><input type="email" id="loginMail" value="anna.becker@example.de"></label>
+    <label class="field"><span>E-Mail-Adresse</span><input type="email" id="loginMail" value="anuschka.mader@example.de"></label>
     <label class="field"><span>Passwort</span><input type="password" value="••••••••"></label>
     <button class="btn btn-b" style="width:100%;justify-content:center" onclick="doLogin()">Anmelden</button>
-    <p class="fineprint">Noch kein Konto? Im Mockup führt jede Anmeldung direkt zum eingeloggten Zustand („Hallo Anna“).</p>
+    <p class="fineprint">Noch kein Konto? Im Mockup führt jede Anmeldung direkt zum eingeloggten Zustand („Hallo Anuschka“).</p>
   </div>
 </div>
 
-<!-- ===================== LIDL PLUS SIGN-UP POPUP =====================
-     Zielzustand: Nutzer ist eingeloggt, aber NOCH KEIN Lidl Plus Mitglied.
-     Hier wird die Marketing-Einwilligung erhoben – über das eingebettete
-     OneTrust Web Form in #ot-container.
-     ================================================================== -->
-<div class="modal" id="plusModal" role="dialog" aria-modal="true" aria-labelledby="plusTitle">
+<!-- ===================== NEWSLETTER-POPUP (WEB) =====================
+     ANDERER USE CASE ALS IN DER APP:
+     Web  = Newsletter / Handzettel per E-Mail  (Collection Point "Web")
+     App  = Lidl Plus Mitgliedschaft            (Collection Point "App")
+     Beide Einwilligungen laufen über dieselbe E-Mail-Adresse in EIN
+     Profil im OneTrust-Backend – das ist die Kernaussage der Demo.
+     ================================================================= -->
+<div class="modal" id="newsModal" role="dialog" aria-modal="true" aria-labelledby="newsTitle">
   <div class="modal-head blue">
     <button class="x" onclick="closeAll()" aria-label="Schließen">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
-    <div class="pluslogo" style="display:inline-block;background:#fff;color:var(--blue);padding:8px 12px;font-size:18px;margin-bottom:12px">Lidl <span style="color:var(--red)">Plus</span></div>
-    <h3 id="plusTitle">Jetzt Lidl Plus beitreten</h3>
-    <p>Exklusive Coupons, digitale Kassenbons, Punkte sammeln – kostenlos.</p>
+    <svg class="news-ill" viewBox="0 0 120 120" aria-hidden="true"><use href="#pr-brief"/></svg>
+    <h3 id="newsTitle">Kein Angebot mehr verpassen</h3>
+    <p>Handzettel, Wochenangebote und Rabattaktionen – jeden Freitag per E-Mail.</p>
   </div>
   <div class="modal-body">
-    <div class="rows" style="margin-bottom:18px">
-      <div class="row" style="padding:9px 0"><span style="font-size:22px">🎟️</span><div class="txt"><b>Persönliche Coupons</b><small>Jede Woche neu, direkt an der Kasse eingelöst</small></div></div>
-      <div class="row" style="padding:9px 0"><span style="font-size:22px">🧾</span><div class="txt"><b>Digitale Kassenbons</b><small>Alle Belege gesammelt in deinem Konto</small></div></div>
-      <div class="row" style="padding:9px 0"><span style="font-size:22px">⭐</span><div class="txt"><b>Punkte &amp; Partnervorteile</b><small>Ein Euro Einkaufswert, ein Punkt</small></div></div>
+    <div class="rows" style="margin-bottom:16px">
+      <div class="row" style="padding:9px 0"><span class="ic"><svg width="20" height="20"><use href="#ic-mail"/></svg></span><div class="txt"><b>Handzettel vorab</b><small>Angebote schon donnerstags im Postfach</small></div></div>
+      <div class="row" style="padding:9px 0"><span class="ic"><svg width="20" height="20"><use href="#ic-ticket"/></svg></span><div class="txt"><b>Rabattaktionen</b><small>Nur für Newsletter-Abonnenten</small></div></div>
+      <div class="row" style="padding:9px 0"><span class="ic"><svg width="20" height="20"><use href="#ic-star"/></svg></span><div class="txt"><b>5 € Gutschein</b><small>Zur Anmeldung, einlösbar im Onlineshop</small></div></div>
     </div>
 
     <!-- ===============================================================
-         ONETRUST · EMBEDDED WEB FORM SLOT
+         ONETRUST · EMBEDDED WEB FORM SLOT (Collection Point: WEB)
          ---------------------------------------------------------------
-         LIVE: OT_CONFIG.webformCpId setzen (siehe Script unten).
-         Das Formular wird per
-           OneTrust.webform.InstallCP("<CP_ID>", { target: "#ot-container" })
-         gerendert – und zwar ERST beim Öffnen dieses Popups, weil das SDK
-         nicht in unsichtbare/nicht gelayoutete Container rendert.
-         Solange keine CP-ID gesetzt ist, greift das Demo-Formular darunter.
+         LIVE: OT_CONFIG.webformCpIdWeb setzen (siehe Script unten).
+         Gerendert per
+           OneTrust.webform.InstallCP("<CP_ID_WEB>", { target: "#ot-container" })
+         und zwar ERST beim Öffnen des Popups, weil das SDK nicht in
+         unsichtbare / nicht gelayoutete Container rendert.
+         Wichtig für die Demo: als Identifier dieselbe E-Mail-Adresse wie
+         im App-Formular verwenden – OneTrust führt beide Collection
+         Points darüber zu einem Profil zusammen.
          =============================================================== -->
     <div class="ot-slot">
-      <div class="tag">OneTrust Web Form</div>
+      <div class="tag">OneTrust Web Form · Collection Point „Web"</div>
       <div id="ot-container"></div>
       <div id="otFallback" style="padding:10px 12px 14px">
-        <label class="field"><span>E-Mail-Adresse</span><input type="email" id="plusMail" value="anna.becker@example.de"></label>
-        <label class="check"><input type="checkbox" id="cWerbung" checked>
-          <span>Ja, ich möchte Angebote, Coupons und Neuigkeiten von Lidl per E-Mail und Push erhalten. Die Einwilligung kann ich jederzeit widerrufen.</span></label>
+        <label class="field"><span>E-Mail-Adresse</span><input type="email" id="newsMail" value="anuschka.mader@example.de"></label>
+        <label class="check"><input type="checkbox" id="cNews" checked>
+          <span>Ja, ich möchte den Lidl Newsletter mit Angeboten und Aktionen per E-Mail erhalten. Widerruf jederzeit möglich.</span></label>
         <label class="check"><input type="checkbox" id="cPerso" checked>
-          <span>Meine Einkaufsdaten dürfen zur Personalisierung meiner Coupons ausgewertet werden.</span></label>
-        <label class="check"><input type="checkbox" id="cAgb">
-          <span>Ich akzeptiere die Teilnahmebedingungen für Lidl Plus.</span></label>
+          <span>Inhalte dürfen anhand meines Klick- und Kaufverhaltens personalisiert werden.</span></label>
+        <label class="check"><input type="checkbox" id="cWhats">
+          <span>Zusätzlich Angebote über den Lidl WhatsApp-Kanal erhalten.</span></label>
       </div>
     </div>
 
-    <button class="btn btn-b" style="width:100%;justify-content:center;margin-top:8px" id="plusSubmit" onclick="joinPlus()">Kostenlos beitreten</button>
+    <div class="unify">
+      <svg width="18" height="18" aria-hidden="true"><use href="#ic-link"/></svg>
+      <p><b>Ein Profil für Web und App.</b> Nutzt du dieselbe E-Mail-Adresse in der Lidl Plus App, führt OneTrust beide Einwilligungen zu einem Profil zusammen – sichtbar im Preference Center.</p>
+    </div>
+
+    <button class="btn btn-b" style="width:100%;justify-content:center;margin-top:8px" onclick="subscribeNews()">Newsletter abonnieren</button>
     <p class="fineprint">Deine Einstellungen kannst du jederzeit im <button class="linkbtn" style="color:var(--blue)" onclick="openPC('comms')">Preference Center</button> ändern.</p>
   </div>
 </div>
@@ -501,9 +624,12 @@ footer a:hover{color:#fff;text-decoration:underline}
 <div class="pc" id="pc" role="dialog" aria-modal="true" aria-label="Meine Einstellungen">
   <div class="pc-top">
     <div class="wrap in">
-      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
-        <rect width="100" height="100" rx="6" fill="#fff"/>
-        <circle cx="50" cy="50" r="34" fill="#FFF000" stroke="#E60A14" stroke-width="6"/>
+      <svg width="36" height="36" viewBox="0 0 120 120" aria-hidden="true">
+        <rect width="120" height="120" rx="10" fill="#fff"/>
+        <circle cx="60" cy="60" r="45" fill="#FFF000" stroke="#E60A14" stroke-width="7"/>
+        <text x="60" y="75" text-anchor="middle" textLength="68" lengthAdjust="spacingAndGlyphs"
+              font-family="Archivo, Arial Black, Arial, sans-serif" font-size="44" font-weight="900"
+              fill="#0050AA">L<tspan fill="#E60A14">i</tspan>dl</text>
       </svg>
       <h2>Meine Einstellungen</h2>
       <button class="x dark" onclick="closePC()" aria-label="Schließen">
@@ -514,6 +640,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   <div class="wrap pc-grid">
     <nav class="pc-nav">
       <a href="#p-daten">Meine Daten</a>
+      <a href="#p-kanaele">Verknüpfte Kanäle</a>
       <a href="#p-comms">Kommunikationspräferenzen</a>
       <a href="#p-freq">Frequenz</a>
       <a href="#p-themen">Themen &amp; Interessen</a>
@@ -525,15 +652,35 @@ footer a:hover{color:#fff;text-decoration:underline}
         <h3>Meine Daten</h3>
         <p class="lead">Diese Angaben nutzen wir für dein Konto und deine persönlichen Angebote.</p>
         <div class="f2">
-          <label class="field"><span>Vorname</span><input type="text" value="Anna"></label>
-          <label class="field"><span>Nachname</span><input type="text" value="Becker"></label>
-          <label class="field"><span>E-Mail-Adresse</span><input type="email" value="anna.becker@example.de"></label>
+          <label class="field"><span>Vorname</span><input type="text" value="Anuschka"></label>
+          <label class="field"><span>Nachname</span><input type="text" value="Mader"></label>
+          <label class="field"><span>E-Mail-Adresse</span><input type="email" value="anuschka.mader@example.de"></label>
           <label class="field"><span>Mobilnummer</span><input type="tel" value="+49 151 2345678"></label>
           <label class="field"><span>Straße und Hausnummer</span><input type="text" value="Musterweg 12"></label>
           <label class="field"><span>PLZ und Ort</span><input type="text" value="74172 Neckarsulm"></label>
           <label class="field"><span>Geburtsdatum</span><input type="date" value="1991-04-17"></label>
           <label class="field"><span>Lieblingsfiliale</span>
             <select><option>Neckarsulm, Binswanger Str. 3</option><option>Heilbronn, Weinsberger Str. 44</option><option>Stuttgart, Königstr. 2</option></select></label>
+        </div>
+      </section>
+
+      <!-- Verknüpfte Kanäle: zeigt die Zusammenführung Web + App in EIN Profil -->
+      <section class="panel" id="p-kanaele">
+        <h3>Verknüpfte Kanäle</h3>
+        <p class="lead">Deine Einwilligungen aus allen Lidl Kanälen – zusammengeführt über deine E-Mail-Adresse.</p>
+        <div class="chan">
+          <span class="ic"><svg width="20" height="20"><use href="#ic-mail"/></svg></span>
+          <div class="txt"><b>Web · Newsletter</b><small>Erfasst über das Newsletter-Popup auf lidl.de</small></div>
+          <span class="state off" id="chanWeb">Keine Einwilligung</span>
+        </div>
+        <div class="chan">
+          <span class="ic"><svg width="20" height="20"><use href="#ic-ticket"/></svg></span>
+          <div class="txt"><b>App · Lidl Plus</b><small>Erfasst bei der Anmeldung in der Lidl Plus App</small></div>
+          <span class="state ok" id="chanApp">Einwilligung erteilt</span>
+        </div>
+        <div class="idline">
+          <svg width="17" height="17"><use href="#ic-link"/></svg>
+          Ein Profil im OneTrust-Backend · <code>anuschka.mader@example.de</code>
         </div>
       </section>
 
@@ -653,8 +800,8 @@ footer a:hover{color:#fff;text-decoration:underline}
     <button onclick="setState('anon')">2 · Anonym (Gerät)</button>
     <button onclick="setState('login')">3 · Login-Fenster</button>
     <button onclick="setState('known')">4 · Eingeloggt, kein Plus</button>
-    <button onclick="openPlus()">5 · Lidl Plus Popup</button>
-    <button onclick="setState('plus')">6 · Lidl Plus Mitglied</button>
+    <button onclick="openNews()">5 · Newsletter-Popup (Web)</button>
+    <button onclick="setState('news')">6 · Newsletter abonniert</button>
     <button onclick="openPC()">7 · Preference Center</button>
   </div>
 </div>
@@ -665,12 +812,14 @@ footer a:hover{color:#fff;text-decoration:underline}
    ===================================================================== */
 window.OT_CONFIG = {
   domainScript : "",   // z. B. "0190a1b2-...-test"   (Cookie-Banner / CMP)
-  webformCpId  : "",   // z. B. "4574b7d1-...-ad8"    (Lidl Plus Web Form)
+  webformCpIdWeb : "", // Collection Point WEB: Newsletter-Anmeldung (dieses Popup)
+  webformCpIdApp : "", // Collection Point APP: Lidl Plus (in app.html) – nur zur Doku
+  identifier     : "anuschka.mader@example.de", // Identifier, über den beide CPs zu einem Profil verschmelzen
   prefCenterId : ""    // Preference-Center-ID, falls eingebettet
 };
 
 /* ---------------- Demo-Status ---------------- */
-var STATE = { loggedIn:false, plus:false };
+var STATE = { loggedIn:false, news:false };
 
 function $(id){ return document.getElementById(id); }
 
@@ -698,22 +847,22 @@ function accountClick(){ STATE.loggedIn ? openPC() : openLogin(); }
 function openLogin(){ openModal('loginModal'); }
 function doLogin(){
   STATE.loggedIn = true;
-  $('accountLabel').textContent = 'Hallo Anna';
+  $('accountLabel').textContent = 'Hallo Anuschka';
   closeAll();
-  toast('Angemeldet als Anna Becker');
-  if(!STATE.plus) setTimeout(openPlus, 700);   // eingeloggt, aber kein Lidl Plus
+  toast('Angemeldet als Anuschka Mader');
+  if(!STATE.news) setTimeout(openNews, 700);   // eingeloggt, aber kein Newsletter-Abo
 }
 
-/* ---------------- Lidl Plus ---------------- */
-function plusNavClick(){
-  if(STATE.plus){ openPC('comms'); return; }
-  if(!STATE.loggedIn){ openLogin(); return; }
-  openPlus();
+/* ---------------- Newsletter (Web Use Case) ---------------- */
+function newsNavClick(){
+  if(STATE.news){ openPC('kanaele'); return; }
+  openNews();
 }
-function joinPlus(){
-  STATE.plus = true;
+function subscribeNews(){
+  STATE.news = true;
   closeAll();
-  toast('Willkommen bei Lidl Plus – Einstellungen gespeichert');
+  paintChannels();
+  toast('Newsletter abonniert – Einstellungen gespeichert');
 }
 
 /* ---------------- Modal-Handling ----------------
@@ -725,16 +874,16 @@ function openModal(id){
   $(id).classList.add('on');
   document.body.classList.add('locked');
 }
-function openPlus(){
-  openModal('plusModal');
+function openNews(){
+  openModal('newsModal');
   startWebformInstall();        // Install erst JETZT – Container ist sichtbar
 }
 function closeAll(keepLock){
-  ['loginModal','plusModal'].forEach(function(id){ $(id).classList.remove('on'); });
+  ['loginModal','newsModal'].forEach(function(id){ $(id).classList.remove('on'); });
   $('scrim').classList.remove('on');
   if(!keepLock) document.body.classList.remove('locked');
 }
-function plusIsOpen(){ return $('plusModal').classList.contains('on'); }
+function newsIsOpen(){ return $('newsModal').classList.contains('on'); }
 
 /* ---------------- Preference Center ---------------- */
 function openPC(anchor){
@@ -760,7 +909,7 @@ var otPoller=null, otLastCall=0;
 function otWebformReady(){ return !!(window.OneTrust && window.OneTrust.webform && window.OneTrust.webform.InstallCP); }
 function webformRendered(){ var c=$('ot-container'); return !!(c && c.children.length); }
 function startWebformInstall(){
-  var cp = (window.OT_CONFIG||{}).webformCpId;
+  var cp = (window.OT_CONFIG||{}).webformCpIdWeb;
   if(!cp){ return; }                       // keine CP-ID → Demo-Formular bleibt sichtbar
   if(otPoller || webformRendered()) return;
   var attempts=0;
@@ -771,7 +920,7 @@ function startWebformInstall(){
       var fb=$('otFallback'); if(fb) fb.style.display='none';   // Demo-Formular ausblenden
       return;
     }
-    if(plusIsOpen() && otWebformReady()){
+    if(newsIsOpen() && otWebformReady()){
       var now=Date.now();
       if(now-otLastCall >= 1500){
         otLastCall = now;
@@ -788,7 +937,8 @@ function startWebformInstall(){
 /* Diagnose + Verhalten nach Absenden */
 window.addEventListener('OnetrustFormLoaded', function(e){ console.log('OnetrustFormLoaded', e.detail); });
 window.addEventListener('OneTrustWebFormSubmitted', function(){
-  STATE.plus = true;
+  STATE.news = true;
+  paintChannels();
   toast('Einstellungen gespeichert');
   setTimeout(closeAll, 400);
 });
@@ -797,18 +947,27 @@ window.addEventListener('OneTrustWebFormSubmitted', function(){
 function setState(s){
   closeAll(); closePC(); hideCookie();
   if(s==='cookie'){ showCookie(); return; }
-  if(s==='anon'){ STATE={loggedIn:false,plus:false}; $('accountLabel').textContent='Anmelden'; toast('Zustand: anonym (Gerät)'); return; }
+  if(s==='anon'){ STATE={loggedIn:false,news:false}; $('accountLabel').textContent='Anmelden'; paintChannels(); toast('Zustand: anonym (Gerät)'); return; }
   if(s==='login'){ openLogin(); return; }
-  if(s==='known'){ STATE={loggedIn:true,plus:false}; $('accountLabel').textContent='Hallo Anna'; toast('Zustand: eingeloggt, kein Lidl Plus'); return; }
-  if(s==='plus'){ STATE={loggedIn:true,plus:true}; $('accountLabel').textContent='Hallo Anna'; toast('Zustand: Lidl Plus Mitglied'); return; }
+  if(s==='known'){ STATE={loggedIn:true,news:false}; $('accountLabel').textContent='Hallo Anuschka'; paintChannels(); toast('Zustand: eingeloggt, kein Newsletter'); return; }
+  if(s==='news'){ STATE={loggedIn:true,news:true}; $('accountLabel').textContent='Hallo Anuschka'; paintChannels(); toast('Zustand: Newsletter abonniert'); return; }
 }
 
 document.addEventListener('keydown', function(e){
   if(e.key==='Escape'){ closeAll(); closePC(); }
 });
 
+/* Verknüpfte Kanäle im Preference Center aktualisieren */
+function paintChannels(){
+  var w=$('chanWeb');
+  if(w){
+    w.textContent = STATE.news ? 'Einwilligung erteilt' : 'Keine Einwilligung';
+    w.className = 'state ' + (STATE.news ? 'ok' : 'off');
+  }
+}
+
 /* Startzustand: Cookie-Banner (Geräteebene) */
-window.addEventListener('load', function(){ setTimeout(showCookie, 600); });
+window.addEventListener('load', function(){ paintChannels(); setTimeout(showCookie, 600); });
 </script>
 </body>
 </html>
