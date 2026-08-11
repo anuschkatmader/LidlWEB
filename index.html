@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lidl.de – Demo Mockup (OneTrust)</title>
-<!-- OneTrust Cookies Consent Notice start for anuschkatmader.github.io/LidlWEB/ -->
+<title>Lidl.de</title>
 
-
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="019ff00c-3b59-7dcb-b6c0-8ca15521d41b" ></script>
-<script type="text/javascript">
-function OptanonWrapper() { }
-</script>
-<!-- OneTrust Cookies Consent Notice end for anuschkatmader.github.io/LidlWEB/ -->
+<!-- =====================================================================
+     ONETRUST · COOKIE BANNER (CMP)
+     ---------------------------------------------------------------------
+     HIER das fertige Production-Script aus dem OneTrust Admin einfügen
+     (otSDKStub.js + data-domain-script + OptanonWrapper).
+     Ein Demo-Banner existiert nicht mehr – der echte Banner wird injiziert.
+     ===================================================================== -->
 
 <!-- =====================================================================
      ONETRUST · EMBEDDED WEB FORM (Newsletter-Popup, Collection Point WEB)
@@ -220,13 +220,15 @@ footer a:hover{color:#fff;text-decoration:underline}
    Das Formular wird vom SDK in #ot-container injiziert. OneTrust setzt
    viele Inline-Styles – deshalb !important.
    ===================================================================== */
-.ot-slot{margin-bottom:4px}
+.ot-slot{margin-bottom:4px;overflow:hidden}
+#ot-container,#ot-container *{box-sizing:border-box !important;max-width:100% !important}
+#ot-container form{width:100% !important}
 #ot-container:empty{display:none}
 #ot-container *{font-family:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif !important}
 #ot-container form,#ot-container > div{background:transparent !important;border:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important;max-width:none !important}
 #ot-container label,#ot-container span,#ot-container p{color:#39424F !important;font-size:14px !important;line-height:1.45 !important}
 #ot-container input[type="text"],#ot-container input[type="email"],#ot-container input[type="tel"],#ot-container select,#ot-container textarea{
-  width:100% !important;padding:12px 14px !important;border:1.5px solid var(--line) !important;border-radius:9px !important;
+  width:100% !important;min-width:0 !important;margin:0 !important;padding:12px 14px !important;border:1.5px solid var(--line) !important;border-radius:9px !important;
   background:#fff !important;color:var(--ink) !important;font-size:15px !important;box-shadow:none !important}
 #ot-container input[type="text"]:focus,#ot-container input[type="email"]:focus,#ot-container select:focus,#ot-container textarea:focus{
   outline:none !important;border-color:var(--blue) !important}
@@ -606,7 +608,9 @@ footer a:hover{color:#fff;text-decoration:underline}
       </div>
     </div>
 
-    <button class="btn btn-b" id="fallbackSubmit" style="width:100%;justify-content:center;margin-top:8px" onclick="subscribeNews()">Newsletter abonnieren</button>
+    <!-- Nur Notfall-Button: erscheint ausschließlich, wenn das OneTrust-Formular nicht rendert.
+         Im Normalfall submittet der Button des OneTrust Web Forms. -->
+    <button class="btn btn-b" id="fallbackSubmit" style="width:100%;justify-content:center;margin-top:8px;display:none" onclick="subscribeNews()">Newsletter abonnieren</button>
     <p class="fineprint">Deine Einstellungen kannst du jederzeit im <button class="linkbtn" style="color:var(--blue)" onclick="openPC('comms')">Preference Center</button> ändern.</p>
   </div>
 </div>
@@ -671,7 +675,7 @@ footer a:hover{color:#fff;text-decoration:underline}
         </div>
         <div class="idline">
           <svg width="17" height="17"><use href="#ic-link"/></svg>
-          Ein Profil im OneTrust-Backend · <code>anuschka.mader@example.de</code>
+          Ein gemeinsames Profil · <code>anuschka.mader@example.de</code>
         </div>
       </section>
 
@@ -738,13 +742,7 @@ footer a:hover{color:#fff;text-decoration:underline}
              rendern lassen (Ziel-Selector: #ot-pref-center).
              Danach können die Demo-Zeilen oben entfallen.
              =========================================================== -->
-        <div class="ot-slot">
-          <div class="tag">OneTrust Preference Center</div>
-          <div id="ot-pref-center"></div>
-          <div id="pcFallback" style="padding:6px 12px 14px;color:var(--grey);font-size:13px">
-            Platzhalter – der eingebettete OneTrust Preference Center rendert an dieser Stelle.
-          </div>
-        </div>
+        <div id="ot-pref-center"></div>
 
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
           <button class="btn btn-ghost" onclick="openCookieSettings()">Cookie-Einstellungen öffnen</button>
@@ -770,7 +768,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   <button class="mini" onclick="document.getElementById('devbar').classList.toggle('min')" aria-label="Ein-/ausklappen">–</button>
   <b>Demo-Steuerung</b>
   <div class="rows2">
-    <button onclick="openCookieSettings()">1 · Cookie-Banner (OneTrust)</button>
+    <button onclick="openCookieSettings()">1 · Cookie-Banner</button>
     <button onclick="setState('anon')">2 · Anonym (Gerät)</button>
     <button onclick="setState('login')">3 · Login-Fenster</button>
     <button onclick="setState('known')">4 · Eingeloggt, kein Plus</button>
@@ -807,7 +805,7 @@ function toast(msg){
 /* LIVE: OneTrust.ToggleInfoDisplay() öffnet das echte Banner erneut. */
 function openCookieSettings(){
   if (window.OneTrust && OneTrust.ToggleInfoDisplay) { OneTrust.ToggleInfoDisplay(); return; }
-  toast('OneTrust CMP-Script im <head> einfügen, dann öffnet sich hier der Banner');
+  toast('Cookie-Einstellungen sind im Mockup noch nicht verbunden');
 }
 
 /* ---------------- Login ---------------- */
@@ -880,7 +878,8 @@ function startWebformInstall(){
   var cp = (window.OT_CONFIG||{}).webformCpIdWeb;
   if(!cp){ return; }                       // keine CP-ID → Demo-Formular bleibt sichtbar
   if(otPoller || webformRendered()) return;
-  var fb0=$('otFallback'); if(fb0) fb0.style.display='none';   // Demo-Formular ausblenden, solange OneTrust lädt
+  var fb0=$('otFallback'); if(fb0) fb0.style.display='none';   // Demo-Formular ausblenden, solange das Formular lädt
+  var fs0=$('fallbackSubmit'); if(fs0) fs0.style.display='none';
   var attempts=0;
   otPoller = setInterval(function(){
     attempts++;
@@ -901,6 +900,7 @@ function startWebformInstall(){
       clearInterval(otPoller); otPoller=null;
       if(!webformRendered()){
         var fb=$('otFallback'); if(fb) fb.style.display='';    // Notfall: Demo-Formular wieder einblenden
+        var fs=$('fallbackSubmit'); if(fs) fs.style.display='';
         console.warn('OneTrust Web Form wurde nicht gerendert – Collection Point veröffentlicht? Domain freigegeben?');
       }
     }
@@ -943,3 +943,10 @@ window.addEventListener('load', function(){ paintChannels(); });
 </script>
 </body>
 </html>
+
+Anuschka Theresa Mader
+Senior Solutions Engineer
+anuschka.mader@onetrust.com
++34 603 600 677 
+OneTrust.com 
+Pl. Pablo Ruiz Picasso 11, 28020 Madrid, Spain 
