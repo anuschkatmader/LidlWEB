@@ -134,9 +134,9 @@ button{font-family:inherit}
 
 .hcard b{font-size:14px;display:block;line-height:1.25;text-shadow:0 1px 4px rgba(0,0,0,.5)}
 .hcard s{color:rgba(255,255,255,.85);font-size:12px}
-.sticker{position:absolute;top:-8px;right:-6px;background:var(--yellow);color:var(--red);
-  font-weight:900;font-size:15px;padding:9px 10px;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,.16);
-  transform:rotate(-8deg);border:2px solid var(--red)}
+.sticker{position:absolute;top:10px;right:10px;background:var(--yellow);color:var(--red);
+  font-weight:900;font-size:15px;line-height:1;letter-spacing:-.01em;padding:8px 10px;border-radius:7px;
+  box-shadow:0 2px 8px rgba(0,0,0,.28);white-space:nowrap}
 
 /* ---------- Sections ---------- */
 section.band{padding:52px 0}
@@ -325,9 +325,9 @@ footer a:hover{color:#fff;text-decoration:underline}
      BILDNACHWEIS · alle Fotos von Wikimedia Commons (freie Lizenzen),
      eingebunden über den stabilen Special:FilePath-Redirect.
        Strawberries.jpg (USDA, PD) · Roasted coffee beans.jpg (PD)
-       Croissant.jpg (CC BY-SA 3.0) · Avocado Hass - single and halved.jpg (CC BY-SA 4.0)
+       Rustic Bakery Treats (Unsplash).jpg (CC0) · Avocado Hass - single and halved.jpg (CC BY-SA 4.0)
        Emmental (fromage) 01.jpg (CC BY-SA 3.0) · Bellarom dark chocolate.jpg
-       Campari Tomatoes on the Vine.JPG (CC BY 3.0)
+       Tomato je.jpg (CC BY-SA 3.0, Featured Picture)
        Fresh fruits and vegetables in 2020 01.jpg · Supermarket shelves.jpg (CC BY-SA 4.0)
      Für eine externe Präsentation ggf. durch lizenzierte Produktfotos
      ersetzen: einfach die src-Attribute der <img class="photo"> tauschen.
@@ -462,10 +462,10 @@ footer a:hover{color:#fff;text-decoration:underline}
       </div>
     </div>
     <div class="hero-card">
-      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strawberries.jpg?width=640" alt="Erdbeeren" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">-40%</span><b>Erdbeeren 500 g</b><s>2,49 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strawberries.jpg?width=640" alt="Erdbeeren" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">-40 %</span><b>Erdbeeren 500 g</b><s>2,49 €</s></div>
       <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Avocado_Hass_-_single_and_halved.jpg?width=640" alt="Avocado" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><b>Avocado, 2 Stück</b><s>2,29 €</s></div>
       <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Emmental_(fromage)_01.jpg?width=640" alt="Bergkäse" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><b>Bergkäse 200 g</b><s>3,49 €</s></div>
-      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Roasted_coffee_beans.jpg?width=640" alt="Kaffeebohnen" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">1,99</span><b>Kaffee, ganze Bohne</b><s>4,99 €</s></div>
+      <div class="hcard"><img class="hphoto" src="https://commons.wikimedia.org/wiki/Special:FilePath/Roasted_coffee_beans.jpg?width=640" alt="Kaffeebohnen" loading="lazy" onerror="this.replaceWith(this.nextElementSibling||document.createTextNode(''))"><span class="sticker">1,99 €</span><b>Kaffee, ganze Bohne</b><s>4,99 €</s></div>
     </div>
   </div>
 </section>
@@ -488,12 +488,12 @@ footer a:hover{color:#fff;text-decoration:underline}
         <div class="price"><span class="now">8,99 €</span><span class="was">12,99 €</span></div></div>
     </article>
     <article class="card">
-      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Croissant.jpg?width=640" alt="Buttercroissants" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg class="fb" viewBox="0 0 120 120" style="display:none" aria-hidden="true"><use href="#pr-croissant"/></svg><span class="badge">Backshop</span></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rustic_Bakery_Treats_(Unsplash).jpg?width=640" alt="Buttercroissants" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg class="fb" viewBox="0 0 120 120" style="display:none" aria-hidden="true"><use href="#pr-croissant"/></svg><span class="badge">Backshop</span></div>
       <div class="body"><b>Buttercroissants</b><small>4 Stück · 1 Stück = 0,30 €</small>
         <div class="price"><span class="now">1,19 €</span><span class="was">1,79 €</span></div></div>
     </article>
     <article class="card">
-      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Campari_Tomatoes_on_the_Vine.JPG?width=640" alt="Rispentomaten" loading="lazy" decoding="async"><span class="badge">Aktion</span></div>
+      <div class="pic"><img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tomato_je.jpg?width=640" alt="Tomaten" loading="lazy" decoding="async"><span class="badge">Aktion</span></div>
       <div class="body"><b>Rispentomaten</b><small>500-g-Schale · 1 kg = 2,38 €</small>
         <div class="price"><span class="now">1,19 €</span><span class="was">1,79 €</span></div></div>
     </article>
