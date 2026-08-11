@@ -8,26 +8,10 @@
 <!-- =====================================================================
      ONETRUST · COOKIE BANNER (CMP)
      ---------------------------------------------------------------------
-     ERSETZEN BEIM GO-LIVE:
-     1) Kommentar unten entfernen und "<DOMAIN-SCRIPT-ID>" durch die echte
-        Domain-Script-ID aus dem OneTrust Admin ersetzen.
-     2) Den Demo-Banner im Markup löschen (Suche: "DEMO COOKIE BANNER").
-     Die Funktion OptanonWrapper() unten wird von OneTrust automatisch
-     aufgerufen, sobald der echte Banner geladen ist.
+     HIER das fertige Production-Script aus dem OneTrust Admin einfügen
+     (otSDKStub.js + data-domain-script + OptanonWrapper).
+     Ein Demo-Banner existiert nicht mehr – der echte Banner wird injiziert.
      ===================================================================== -->
-<!--
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-        type="text/javascript"
-        charset="UTF-8"
-        data-domain-script="<DOMAIN-SCRIPT-ID>"></script>
-<script type="text/javascript">
-  function OptanonWrapper() {
-    document.body.classList.add('ot-live');
-    var demo = document.getElementById('cookieDemo');
-    if (demo) demo.remove();
-  }
-</script>
--->
 
 <!-- =====================================================================
      ONETRUST · EMBEDDED WEB FORM (Newsletter-Popup, Collection Point WEB)
@@ -131,13 +115,14 @@ button{font-family:inherit}
 .hcard .hphoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .hcard:after{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(10,20,35,0) 34%,rgba(10,20,35,.82) 100%)}
-.hcard b,.hcard s,.hcard .sticker{position:relative;z-index:2}
+.hcard b,.hcard s{position:relative;z-index:2}
 
 .hcard b{font-size:14px;display:block;line-height:1.25;text-shadow:0 1px 4px rgba(0,0,0,.5)}
 .hcard s{color:rgba(255,255,255,.85);font-size:12px}
-.sticker{position:absolute;top:10px;right:10px;background:var(--yellow);color:var(--red);
-  font-weight:900;font-size:15px;line-height:1;letter-spacing:-.01em;padding:8px 10px;border-radius:7px;
-  box-shadow:0 2px 8px rgba(0,0,0,.28);white-space:nowrap}
+.hcard .sticker{position:absolute;top:10px;right:10px;z-index:3;align-self:flex-end;
+  background:var(--yellow);color:var(--red);font-weight:900;font-size:15px;line-height:1;
+  letter-spacing:-.01em;padding:8px 10px;border-radius:7px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.28)}
 
 /* ---------- Sections ---------- */
 section.band{padding:52px 0}
@@ -230,10 +215,29 @@ footer a:hover{color:#fff;text-decoration:underline}
   padding:11px 14px;font-size:13px;font-weight:700;margin-top:14px}
 .idline code{font-weight:600;opacity:.85}
 
-/* ONETRUST SLOT */
-.ot-slot{border:2px dashed #C7D3E2;border-radius:12px;padding:4px;background:#FAFCFF;margin-bottom:6px}
-.ot-slot .tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8496AC;font-weight:900;padding:6px 8px 2px}
+/* =====================================================================
+   ONETRUST · WEB FORM STYLING (Lidl Branding)
+   Das Formular wird vom SDK in #ot-container injiziert. OneTrust setzt
+   viele Inline-Styles – deshalb !important.
+   ===================================================================== */
+.ot-slot{margin-bottom:4px}
 #ot-container:empty{display:none}
+#ot-container *{font-family:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif !important}
+#ot-container form,#ot-container > div{background:transparent !important;border:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important;max-width:none !important}
+#ot-container label,#ot-container span,#ot-container p{color:#39424F !important;font-size:14px !important;line-height:1.45 !important}
+#ot-container input[type="text"],#ot-container input[type="email"],#ot-container input[type="tel"],#ot-container select,#ot-container textarea{
+  width:100% !important;padding:12px 14px !important;border:1.5px solid var(--line) !important;border-radius:9px !important;
+  background:#fff !important;color:var(--ink) !important;font-size:15px !important;box-shadow:none !important}
+#ot-container input[type="text"]:focus,#ot-container input[type="email"]:focus,#ot-container select:focus,#ot-container textarea:focus{
+  outline:none !important;border-color:var(--blue) !important}
+#ot-container input[type="checkbox"],#ot-container input[type="radio"]{
+  width:19px !important;height:19px !important;accent-color:var(--blue) !important;margin-right:10px !important;flex-shrink:0 !important}
+#ot-container button,#ot-container input[type="submit"],#ot-container [role="button"],#ot-container .ot-btn{
+  background:var(--blue) !important;color:#fff !important;border:0 !important;border-radius:8px !important;
+  width:100% !important;padding:14px 24px !important;font-size:16px !important;font-weight:800 !important;
+  cursor:pointer !important;opacity:1 !important;text-transform:none !important;box-shadow:none !important;letter-spacing:0 !important}
+#ot-container button:hover,#ot-container input[type="submit"]:hover{background:var(--blue-dark) !important}
+#ot-container a{color:var(--blue) !important;font-weight:700 !important}
 
 /* ---------- Preference Center ---------- */
 .pc{position:fixed;inset:0;z-index:105;background:var(--surface);overflow:auto;display:none}
@@ -275,16 +279,6 @@ footer a:hover{color:#fff;text-decoration:underline}
   display:flex;gap:12px;align-items:center;margin-top:8px}
 .savebar span{color:var(--grey);font-size:13px}
 
-/* ---------- DEMO cookie banner ---------- */
-.cookie{position:fixed;left:0;right:0;bottom:0;z-index:110;background:#fff;border-top:4px solid var(--blue);
-  box-shadow:0 -10px 40px rgba(0,0,0,.18);padding:22px 0;display:none}
-.cookie.on{display:block}
-.cookie .in{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}
-.cookie h3{font-size:19px;text-transform:uppercase;margin-bottom:6px}
-.cookie p{font-size:13.5px;color:var(--grey);margin:0;max-width:80ch}
-.cookie .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.cookie .btn{padding:12px 18px;font-size:14px}
-.ot-note{margin-top:12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8496AC;font-weight:900}
 
 /* ---------- Toast + dev switcher ---------- */
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,140%);z-index:200;background:var(--ink);
@@ -598,10 +592,8 @@ footer a:hover{color:#fff;text-decoration:underline}
          Points darüber zu einem Profil zusammen.
          =============================================================== -->
     <div class="ot-slot">
-      <div class="tag">OneTrust Web Form · Collection Point „Web"</div>
-      <!-- Alternativer Trigger laut OneTrust Admin (Button öffnet das Formular on demand):
-           <button class="ot-open-webform" id="b90a1a08-78df-4be5-ac3d-2721a404430d">Open web form</button>
-           Hier nicht nötig, weil das Formular beim Öffnen des Popups inline installiert wird. -->
+      <!-- Alternativer Trigger laut OneTrust Admin:
+           <button class="ot-open-webform" id="b90a1a08-78df-4be5-ac3d-2721a404430d">Open web form</button> -->
       <div id="ot-container"></div>
       <div id="otFallback" style="padding:10px 12px 14px">
         <label class="field"><span>E-Mail-Adresse</span><input type="email" id="newsMail" value="anuschka.mader@example.de"></label>
@@ -614,12 +606,7 @@ footer a:hover{color:#fff;text-decoration:underline}
       </div>
     </div>
 
-    <div class="unify">
-      <svg width="18" height="18" aria-hidden="true"><use href="#ic-link"/></svg>
-      <p><b>Ein Profil für Web und App.</b> Nutzt du dieselbe E-Mail-Adresse in der Lidl Plus App, führt OneTrust beide Einwilligungen zu einem Profil zusammen – sichtbar im Preference Center.</p>
-    </div>
-
-    <button class="btn btn-b" style="width:100%;justify-content:center;margin-top:8px" onclick="subscribeNews()">Newsletter abonnieren</button>
+    <button class="btn btn-b" id="fallbackSubmit" style="width:100%;justify-content:center;margin-top:8px" onclick="subscribeNews()">Newsletter abonnieren</button>
     <p class="fineprint">Deine Einstellungen kannst du jederzeit im <button class="linkbtn" style="color:var(--blue)" onclick="openPC('comms')">Preference Center</button> ändern.</p>
   </div>
 </div>
@@ -774,24 +761,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   </div>
 </div>
 
-<!-- ===================== DEMO COOKIE BANNER =====================
-     PLATZHALTER – wird beim Go-live durch den echten OneTrust-Banner
-     ersetzt. Diesen gesamten Block dann löschen.
-     ============================================================ -->
-<div class="cookie" id="cookieDemo" role="dialog" aria-label="Cookie-Einstellungen">
-  <div class="wrap in">
-    <div>
-      <h3>Wir verwenden Cookies</h3>
-      <p>Wir und unsere Partner setzen Cookies ein, um die Website bereitzustellen, Inhalte zu personalisieren und Werbung auszuspielen. Du kannst deine Auswahl jederzeit in den Cookie-Einstellungen ändern.</p>
-      <div class="ot-note">Platzhalter · hier wird der OneTrust CMP-Banner eingebunden</div>
-    </div>
-    <div class="btns">
-      <button class="btn btn-ghost" onclick="cookieChoice('reject')">Nur notwendige</button>
-      <button class="btn btn-ghost" onclick="cookieChoice('settings')">Einstellungen</button>
-      <button class="btn btn-b" onclick="cookieChoice('accept')">Alle akzeptieren</button>
-    </div>
-  </div>
-</div>
+<!-- Der echte OneTrust CMP-Banner wird vom SDK injiziert (Script oben im <head>). -->
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -800,7 +770,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   <button class="mini" onclick="document.getElementById('devbar').classList.toggle('min')" aria-label="Ein-/ausklappen">–</button>
   <b>Demo-Steuerung</b>
   <div class="rows2">
-    <button onclick="setState('cookie')">1 · Cookie-Banner</button>
+    <button onclick="openCookieSettings()">1 · Cookie-Banner (OneTrust)</button>
     <button onclick="setState('anon')">2 · Anonym (Gerät)</button>
     <button onclick="setState('login')">3 · Login-Fenster</button>
     <button onclick="setState('known')">4 · Eingeloggt, kein Plus</button>
@@ -833,17 +803,11 @@ function toast(msg){
 }
 
 /* ---------------- Cookie-Banner (Demo) ---------------- */
-function showCookie(){ $('cookieDemo').classList.add('on'); }
-function hideCookie(){ $('cookieDemo').classList.remove('on'); }
-function cookieChoice(kind){
-  hideCookie();
-  toast(kind==='accept' ? 'Alle Cookies akzeptiert' :
-        kind==='reject' ? 'Nur notwendige Cookies aktiv' : 'Cookie-Einstellungen gespeichert');
-}
+
 /* LIVE: OneTrust.ToggleInfoDisplay() öffnet das echte Banner erneut. */
 function openCookieSettings(){
   if (window.OneTrust && OneTrust.ToggleInfoDisplay) { OneTrust.ToggleInfoDisplay(); return; }
-  showCookie();
+  toast('OneTrust CMP-Script im <head> einfügen, dann öffnet sich hier der Banner');
 }
 
 /* ---------------- Login ---------------- */
@@ -953,8 +917,8 @@ window.addEventListener('OneTrustWebFormSubmitted', function(){
 
 /* ---------------- Demo-Steuerung ---------------- */
 function setState(s){
-  closeAll(); closePC(); hideCookie();
-  if(s==='cookie'){ showCookie(); return; }
+  closeAll(); closePC();
+  if(s==='cookie'){ openCookieSettings(); return; }
   if(s==='anon'){ STATE={loggedIn:false,news:false}; $('accountLabel').textContent='Anmelden'; paintChannels(); toast('Zustand: anonym (Gerät)'); return; }
   if(s==='login'){ openLogin(); return; }
   if(s==='known'){ STATE={loggedIn:true,news:false}; $('accountLabel').textContent='Hallo Anuschka'; paintChannels(); toast('Zustand: eingeloggt, kein Newsletter'); return; }
@@ -975,14 +939,7 @@ function paintChannels(){
 }
 
 /* Startzustand: Cookie-Banner (Geräteebene) */
-window.addEventListener('load', function(){ paintChannels(); setTimeout(showCookie, 600); });
+window.addEventListener('load', function(){ paintChannels(); });
 </script>
 </body>
 </html>
-
-Anuschka Theresa Mader
-Senior Solutions Engineer
-anuschka.mader@onetrust.com
-+34 603 600 677 
-OneTrust.com 
-Pl. Pablo Ruiz Picasso 11, 28020 Madrid, Spain 
